@@ -58,7 +58,7 @@ sup{font-size:.7em}
 
 <section id="s4"><div class="container"><h2>4. 핵종 물리 데이터 및 선량률정수</h2>
 <h3>4.1 핵종 붕괴자료</h3>
-<table><thead><tr><th>핵종</th><th>반감기</th><th>주 방출</th><th>에너지 (keV)</th><th>방출률 (%)</th><th>출처</th></tr></thead><tbody><tr><td rowspan="2">Am-241</td><td rowspan="2">432.2 y</td><td>&gamma;</td><td>59.5</td><td>35.9</td><td><a href="https://www.icrp.org/publication.asp?id=ICRP%20Publication%20107" target="_blank">[R3]</a></td></tr><tr><td>Np L X-ray</td><td>14~21</td><td>(다중)</td><td>[R3]</td></tr><tr><td rowspan="2">Cd-109</td><td rowspan="2">461.4 d</td><td>&gamma; (Ag-109m IT)</td><td>88.0</td><td>3.65</td><td>[R3]</td></tr><tr><td>Ag K X-ray</td><td>22.1</td><td>~83</td><td>[R3]</td></tr><tr><td rowspan="2">Fe-55</td><td rowspan="2">2.737 y</td><td>Mn K&alpha; X-ray</td><td>5.899</td><td>16.6</td><td>[R3]</td></tr><tr><td>Mn K&beta; X-ray</td><td>6.490</td><td>3.4</td><td>[R3]</td></tr></tbody></table>
+<table><thead><tr><th>핵종</th><th>반감기</th><th>주 방출</th><th>에너지 (keV)</th><th>방출률 (%)</th><th>출처</th></tr></thead><tbody><tr><td rowspan="2">Am-241</td><td rowspan="2">432.2 y</td><td>&gamma;</td><td>59.5</td><td>35.9</td><td><a href="https://www.icrp.org/publication.asp?id=ICRP%20Publication%20107" target="_blank">[R3]</a></td></tr><tr><td>Np L X-ray</td><td>14~21</td><td>(다중)</td><td>[R3]</td></tr><tr><td rowspan="2">Cd-109</td><td rowspan="2">461.4 d</td><td>&gamma; (Ag-109m IT)</td><td>88.0</td><td>3.65</td><td>[R3]</td></tr><tr><td>Ag K X-ray</td><td>22~25</td><td>99.2</td><td>[R3]</td></tr><tr><td rowspan="2">Fe-55</td><td rowspan="2">2.737 y</td><td>Mn K&alpha; X-ray</td><td>5.899</td><td>16.6</td><td>[R3]</td></tr><tr><td>Mn K&beta; X-ray</td><td>6.490</td><td>3.4</td><td>[R3]</td></tr></tbody></table>
 
 <h3>4.2 선량률정수 (&Gamma;)</h3>
 
@@ -162,16 +162,18 @@ ln(&mu;) = &minus;3.1947+0.9578&times;(&minus;0.2983) = <strong>&minus;3.4804</s
 <strong>채택 근거</strong>: Smith &amp; Stabin은 peer-review 논문으로서 1,100+ 핵종에 대해 일관된 방법론 적용. <strong>S&amp;S 값(0.01775)을 채택</strong>하되, NIST 독립계산이 더 높으므로 S&amp;S 값은 <strong>비보수적 방향</strong>의 차이임을 참고한다. 단, 본 평가의 결론(기존 대비 10<sup>&minus;6</sup> 수준)은 2.23배 차이로 변동 없음.</div>
 
 <h4>Cd-109 &mdash; Smith &amp; Stabin [R1] Table 1</h4>
-<div class="card info"><strong>원본값</strong>: &Gamma;<sub>R</sub> = <strong>0.858</strong> R&middot;cm&sup2;/(mCi&middot;h)<br><em>출처: Smith &amp; Stabin (2012), Health Physics 102(3), Table 1 &mdash; Cd-109 행</em></div>
+<div class="card info"><strong>원본값</strong>: &Gamma;<sub>R</sub> = <strong>1.890</strong> R&middot;cm&sup2;/(mCi&middot;h) (SI: 3.66&times;10<sup>&minus;13</sup> C&middot;m&sup2;/(kg&middot;MBq&middot;s))<br><em>출처: Smith &amp; Stabin (2012), Health Physics 102(3), Table 1 &mdash; Cd-109 행</em></div>
+<div class="gemini-fix"><strong>&#9888; v3 정정</strong>: v2에서 Cd-109 &Gamma;를 0.858로 오독하였으나, S&amp;S Table 1 원문 및 SI열(3.66&times;10<sup>&minus;13</sup>) 역산 검증 결과 <strong>1.890</strong>이 정확함.</div>
 <div class="formula"><span class="step">환산:</span><br>
-&Gamma; = 0.858 &times; 0.023703 = <span class="result">0.02034 &mu;Sv&middot;m&sup2;/(MBq&middot;h)</span><br><br>
+&Gamma; = 1.890 &times; 0.023703 = <span class="result">0.04480 &mu;Sv&middot;m&sup2;/(MBq&middot;h)</span><br><br>
 <span class="step">단계별:</span><br>
-&nbsp;&nbsp;① R &rarr; &mu;Sv: 0.858 &times; 8,770 = 7,525<br>
-&nbsp;&nbsp;② cm&sup2; &rarr; m&sup2;: 7,525 &divide; 10,000 = 0.7525<br>
-&nbsp;&nbsp;③ mCi &rarr; MBq: 0.7525 &divide; 37 = <strong>0.02034</strong><br><br>
-<span class="step">역산 검증:</span> 0.02034 &divide; 0.023703 = 0.858 R&middot;cm&sup2;/(mCi&middot;h) &check;</div>
-<blockquote>채택값: &Gamma;<sub>Cd-109</sub> = <strong>0.02034</strong> &mu;Sv&middot;m&sup2;/(MBq&middot;h) [R1]</blockquote>
-<p>88.0 keV &gamma;(3.65%) 및 Ag K X-ray(22.1 keV, ~83%)를 모두 포함한 값이다.</p>
+&nbsp;&nbsp;① R &rarr; &mu;Sv: 1.890 &times; 8,770 = 16,575<br>
+&nbsp;&nbsp;② cm&sup2; &rarr; m&sup2;: 16,575 &divide; 10,000 = 1.6575<br>
+&nbsp;&nbsp;③ mCi &rarr; MBq: 1.6575 &divide; 37 = <strong>0.04480</strong><br><br>
+<span class="step">역산 검증:</span> 0.04480 &divide; 0.023703 = 1.890 R&middot;cm&sup2;/(mCi&middot;h) &check;<br>
+<span class="step">SI열 검증:</span> 3.66&times;10<sup>&minus;13</sup> &times; 37 &times; 10<sup>4</sup> &times; 3600 &divide; 2.58&times;10<sup>&minus;4</sup> = 1.890 &check;</div>
+<blockquote>채택값: &Gamma;<sub>Cd-109</sub> = <strong>0.04480</strong> &mu;Sv&middot;m&sup2;/(MBq&middot;h) [R1]</blockquote>
+<p>88.0 keV &gamma;(3.65%) 및 Ag K X-ray(22~25 keV, 총 99.2%)를 모두 포함한 값이다.</p>
 
 <h4>Cd-109 &mdash; NIST 독립 검증 계산 ([R3]+[R4])</h4>
 
@@ -222,10 +224,10 @@ ln(&mu;) = &minus;3.7268+0.4287&times;(&minus;0.0347) = <strong>&minus;3.7416</s
 &Gamma;<sub>NIST</sub> = 1.077&times;10<sup>&minus;17</sup> &times; 3.6&times;10<sup>15</sup> = <span class="result">0.0388 &mu;Sv&middot;m&sup2;/(MBq&middot;h)</span><br><br>
 <span class="step">R 단위 역환산:</span> 0.0388 / 0.023703 = <strong>1.636 R&middot;cm&sup2;/(mCi&middot;h)</strong></div>
 
-<div class="card warn"><strong>S&amp;S와의 비교: NIST/S&amp;S = 1.91배</strong><br>
+<div class="card success"><strong>S&amp;S와의 비교: NIST/S&amp;S = 0.87배 &mdash; 양호한 일치</strong><br>
 &bull; NIST 독립 계산: 1.636 R (&rarr; 0.0388 &mu;Sv)<br>
-&bull; Smith &amp; Stabin [R1]: 0.858 R (&rarr; 0.02034 &mu;Sv)<br><br>
-Am-241과 동일하게 <strong>Ag K X-ray 기여(99.1%)</strong>의 방출률 데이터 차이에 기인. S&amp;S 값을 채택하며, NIST 값이 더 높으므로 S&amp;S 기반 평가는 비보수적 방향 차이이나 결론에 영향 없음.</div>
+&bull; Smith &amp; Stabin [R1]: 1.890 R (&rarr; 0.04480 &mu;Sv)<br><br>
+Claude NIST 값이 S&amp;S보다 <strong>13% 낮으므로</strong>, S&amp;S 채택이 보수적(안전 방향)이다. Am-241과 달리 Cd-109에서는 유의미한 불일치가 없다.</div>
 
 <h4>Fe-55 &mdash; ICRP-107 [R3] + NIST SRD 126 [R4]로부터 직접 산정</h4>
 <div class="card info">Fe-55의 선량률정수는 Smith &amp; Stabin [R1] Table 1에 수록되어 있지 않다. Fe-55가 방출하는 Mn K 특성 X선(5.9 keV)은 에너지가 매우 낮아 통상의 금속 밀봉캡슐로 차폐되므로, 문헌에서 외부선량 기여 핵종으로 다루지 않기 때문이다. 그러나 본 평가에서는 비차폐 점선원을 가정하므로, <strong>기초 물리 데이터로부터 공기커마 선량률정수를 직접 계산</strong>한다.</div>
@@ -292,7 +294,7 @@ s&rarr;h: &times;3,600<br>
 <h3>4.3 채택값 요약</h3>
 <table><thead><tr><th>핵종</th><th>Smith &amp; Stabin 원본<br>R&middot;cm&sup2;/(mCi&middot;h)</th><th>&times;0.023703 환산<br>&mu;Sv&middot;m&sup2;/(MBq&middot;h)</th><th>비고</th></tr></thead><tbody>
 <tr><td>Am-241</td><td class="num">0.749</td><td class="num"><strong>0.01775</strong></td><td class="left">[R1] Table 1, &gamma;+L X-ray 포함</td></tr>
-<tr><td>Cd-109</td><td class="num">0.858</td><td class="num"><strong>0.02034</strong></td><td class="left">[R1] Table 1, &gamma;+Ag K X-ray 포함</td></tr>
+<tr><td>Cd-109</td><td class="num">1.890</td><td class="num"><strong>0.04480</strong></td><td class="left">[R1] Table 1, &gamma;+Ag K X-ray 포함</td></tr>
 <tr><td>Fe-55</td><td class="num">&mdash;</td><td class="num"><strong>0.1255</strong></td><td class="left">미수록, [R3]+[R4] 직접 계산</td></tr>
 </tbody></table>
 
@@ -304,23 +306,30 @@ s&rarr;h: &times;3,600<br>
 <h3>5.1 추가·변경 3핵종 (비차폐, 공기감쇠 미고려)</h3>
 <table><thead><tr><th>핵종</th><th>A (MBq)</th><th>&Gamma;</th><th>1 m 선량률</th><th>0.3 m 선량률</th></tr></thead><tbody>
 <tr><td>Am-241</td><td class="num">37,000</td><td class="num">0.01775</td><td class="num"><strong>657 &mu;Sv/h</strong></td><td class="num"><strong>7,298 &mu;Sv/h</strong></td></tr>
-<tr><td>Cd-109</td><td class="num">7,400</td><td class="num">0.02034</td><td class="num"><strong>151 &mu;Sv/h</strong></td><td class="num"><strong>1,672 &mu;Sv/h</strong></td></tr>
+<tr><td>Cd-109</td><td class="num">7,400</td><td class="num">0.04480</td><td class="num"><strong>332 &mu;Sv/h</strong></td><td class="num"><strong>3,684 &mu;Sv/h</strong></td></tr>
 <tr><td>Fe-55</td><td class="num">37,000</td><td class="num">0.1255</td><td class="num"><strong>4,644 &mu;Sv/h</strong></td><td class="num"><strong>51,594 &mu;Sv/h</strong></td></tr>
-<tr class="total"><td>3핵종 합계</td><td></td><td></td><td class="num"><strong>5,451 &mu;Sv/h</strong></td><td class="num"><strong>60,563 &mu;Sv/h</strong></td></tr>
+<tr class="total"><td>3핵종 합계</td><td></td><td></td><td class="num"><strong>5,633 &mu;Sv/h</strong></td><td class="num"><strong>62,576 &mu;Sv/h</strong></td></tr>
 </tbody></table>
-<details open><summary>&#9654; 검산 상세</summary><div class="content"><div class="formula">Am-241 @1m: 0.01775&times;37,000/1&sup2; = 656.8 &asymp; 657 &check;<br>Cd-109 @1m: 0.02034&times;7,400/1&sup2; = 150.5 &asymp; 151 &check;<br>Fe-55 @1m: 0.1255&times;37,000/1&sup2; = 4,643.5 &asymp; 4,644 &check;<br><br>Am-241 @0.3m: 656.8/0.09 = 7,298 &check;<br>Cd-109 @0.3m: 150.5/0.09 = 1,672 &check;<br>Fe-55 @0.3m: 4,643.5/0.09 = 51,594 &check;<br><br>합계 @1m: 657+151+4,644 = 5,451 &check;<br>합계 @0.3m: 7,298+1,672+51,594 = 60,563 &check;</div></div></details>
+<details open><summary>&#9654; 검산 상세</summary><div class="content"><div class="formula">Am-241 @1m: 0.01775&times;37,000/1&sup2; = 656.8 &asymp; 657 &check;<br>Cd-109 @1m: 0.04480&times;7,400/1&sup2; = 331.5 &asymp; 332 &check;<br>Fe-55 @1m: 0.1255&times;37,000/1&sup2; = 4,643.5 &asymp; 4,644 &check;<br><br>Am-241 @0.3m: 656.8/0.09 = 7,298 &check;<br>Cd-109 @0.3m: 331.5/0.09 = 3,684 &check;<br>Fe-55 @0.3m: 4,643.5/0.09 = 51,594 &check;<br><br>합계 @1m: 657+332+4,644 = 5,633 &check;<br>합계 @0.3m: 7,298+3,684+51,594 = 62,576 &check;</div>
+<div class="gemini-fix" style="margin-top:12px"><strong>&#9888; Fe-55 공기감쇠 참고</strong> (Gemini 4차 교차검증 지적)<br>
+위 선량률은 &Gamma;&times;A/r&sup2; 역제곱 법칙만 적용한 <strong>비감쇠 이론값</strong>이다. Fe-55의 5.89 keV X선은 공기 감쇠가 극단적이다:<br>
+&bull; &mu;/&rho;<sub>air</sub>(6 keV) = 24.03 cm&sup2;/g, &rho;<sub>air</sub> = 0.001205 g/cm&sup3;<br>
+&bull; &mu;<sub>air</sub> = 0.02896 cm<sup>&minus;1</sup><br>
+&bull; T(1m) = e<sup>&minus;2.896</sup> = <strong>0.055</strong> &rarr; 공기 1m에서 <strong>94.5% 흡수</strong><br>
+&bull; 공기감쇠 적용 시 실제 1m 선량률 &asymp; 4,644 &times; 0.055 = <strong>~257 &mu;Sv/h</strong><br><br>
+본 보고서는 §3.1에 따라 공기감쇠를 무시하는 비차폐 점선원 모델을 사용하므로 상기 이론값이 보수적으로 적절하다. 다만 Fe-55의 경우 공기감쇠만으로도 선량률이 1/18로 감소하므로, 실제 피폭은 이론값보다 현저히 낮다.</div></div></details>
 
 <h3>5.2 기존 저장선원 (비차폐, 동일 조건)</h3>
 <table><thead><tr><th>핵종</th><th>A (MBq)</th><th>&Gamma;</th><th>1 m 선량률</th></tr></thead><tbody><tr><td>Co-60 (1등급)</td><td class="num">97,680,000</td><td class="num">0.3059</td><td class="num"><strong>29,880,312 &mu;Sv/h &asymp; 29.9 Sv/h</strong></td></tr><tr><td>Ir-192</td><td class="num">3,788,800,000</td><td class="num">0.1091</td><td class="num"><strong>413,358,080 &mu;Sv/h &asymp; 413 Sv/h</strong></td></tr><tr><td>Se-75</td><td class="num">26,344,000,000</td><td class="num">0.0434</td><td class="num"><strong>1,143,329,600 &mu;Sv/h &asymp; 1,143 Sv/h</strong></td></tr><tr class="total"><td>기존 합계</td><td></td><td></td><td class="num"><strong>1,586,567,992 &mu;Sv/h &asymp; 1,587 Sv/h</strong></td></tr></tbody></table>
 
 <h3>5.3 비교</h3>
-<div class="card" style="padding:24px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:24px"><div><div style="font-size:.85rem;color:var(--muted);margin-bottom:8px">vs Co-60 단독 (1m)</div><div style="font-size:2rem;font-weight:700;color:var(--accent)">1.82 &times; 10<sup>&minus;4</sup></div><div style="font-size:.8rem;margin-top:4px">5,451 / 29,880,312</div></div><div><div style="font-size:.85rem;color:var(--muted);margin-bottom:8px">vs 기존 3핵종 합계 (1m)</div><div style="font-size:2rem;font-weight:700;color:var(--success)">3.44 &times; 10<sup>&minus;6</sup></div><div style="font-size:.8rem;margin-top:4px">5,451 / 1,586,567,992</div></div></div></div>
+<div class="card" style="padding:24px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:24px"><div><div style="font-size:.85rem;color:var(--muted);margin-bottom:8px">vs Co-60 단독 (1m)</div><div style="font-size:2rem;font-weight:700;color:var(--accent)">1.89 &times; 10<sup>&minus;4</sup></div><div style="font-size:.8rem;margin-top:4px">5,633 / 29,880,312</div></div><div><div style="font-size:.85rem;color:var(--muted);margin-bottom:8px">vs 기존 3핵종 합계 (1m)</div><div style="font-size:2rem;font-weight:700;color:var(--success)">3.55 &times; 10<sup>&minus;6</sup></div><div style="font-size:.8rem;margin-top:4px">5,633 / 1,586,567,992</div></div></div></div>
 
 <h4>시각적 비교 (1 m 선량률)</h4>
 <div class="bar-container"><div class="bar-label"><span>기존 Se-75</span><span>1,143 Sv/h</span></div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#e53e3e">1,143,329,600 &mu;Sv/h</div></div></div>
 <div class="bar-container"><div class="bar-label"><span>기존 Ir-192</span><span>413 Sv/h</span></div><div class="bar-track"><div class="bar-fill" style="width:36%;background:#dd6b20">413,358,080 &mu;Sv/h</div></div></div>
 <div class="bar-container"><div class="bar-label"><span>기존 Co-60</span><span>29.9 Sv/h</span></div><div class="bar-track"><div class="bar-fill" style="width:2.6%;background:#d69e2e">29,880,312 &mu;Sv/h</div></div></div>
-<div class="bar-container"><div class="bar-label"><span><strong>추가 3핵종 합계</strong></span><span><strong>5,451 &mu;Sv/h</strong></span></div><div class="bar-track"><div class="bar-fill" style="width:0.15%;min-width:120px;background:var(--accent)">5,451 &mu;Sv/h (0.00034%)</div></div></div>
+<div class="bar-container"><div class="bar-label"><span><strong>추가 3핵종 합계</strong></span><span><strong>5,633 &mu;Sv/h</strong></span></div><div class="bar-track"><div class="bar-fill" style="width:0.15%;min-width:120px;background:var(--accent)">5,633 &mu;Sv/h (0.00036%)</div></div></div>
 
 <h3>5.4 저장시설 경계면 선량률 변동</h3>
 <div class="card success">기존 저장시설 표면선량률 평가 결과(차폐 포함)에 대해, 추가 3핵종의 비차폐(최보수적) 기여분을 더하더라도 기존 평가 결과의 유효숫자 범위 내이며, <strong>저장시설 표면선량률 평가 결과에 변동 없음</strong>.</div>
@@ -594,15 +603,20 @@ NIST 계산 MVL(0.252 mm)과 S&amp;S MVL(0.74 mm)의 차이는 <strong>Pb K-edge
 <h4>6.4.4 Python 계산 코드 및 검증</h4>
 
 <div class="gemini-review">
-<span class="badge-gemini">&#x1F50D; Gemini 교차검증 수정사항 (2026-04-14)</span>
-<h4>Fallback 버그 수정</h4>
-<p>Gemini의 코드 리뷰에서 <code>get_fe_mu(E)</code> 및 <code>get_air_muen(E)</code> 함수의 <strong>범위 이탈 시 fallback 버그</strong>가 발견되었다.</p>
-<table style="font-size:.82rem"><thead><tr><th>항목</th><th>수정 전 (버그)</th><th>수정 후</th></tr></thead><tbody>
-<tr><td class="left">입력: Fe-55 (5.89 keV)</td><td class="left" style="color:var(--danger)">fe_data 최저(10 keV) 미만 &rarr; 루프 통과 &rarr; <strong>100 keV 값(0.3717) 반환</strong></td><td class="left" style="color:var(--success)">범위 이하 감지 &rarr; <strong>처음 두 점(10, 15 keV)으로 log-log 외삽</strong> &rarr; 712.4 반환</td></tr>
-<tr><td class="left">오차 규모</td><td colspan="2" class="left">수정 전 값은 실제의 <strong>1/1,916</strong> &mdash; 차폐 두께가 약 2,000배 과소평가되는 치명적 오류</td></tr>
-<tr><td class="left">발현 여부</td><td colspan="2" class="left">Am-241(최저 11.89 keV)과 Cd-109(최저 21.99 keV)만 계산하여 <strong>미발현</strong>. Fe-55를 코드에 추가했다면 발현.</td></tr>
+<span class="badge-gemini">&#x1F50D; Gemini 교차검증 수정사항 (3차 + 4차)</span>
+<h4>3차: Fallback 버그 수정</h4>
+<p>Gemini 3차 검토에서 <code>get_fe_mu(E)</code> 및 <code>get_air_muen(E)</code> 함수의 <strong>범위 이탈 시 fallback 버그</strong>가 발견되었다.</p>
+<table style="font-size:.82rem"><thead><tr><th>항목</th><th>수정 전 (버그)</th><th>3차 수정</th></tr></thead><tbody>
+<tr><td class="left">입력: Fe-55 (5.89 keV)</td><td class="left" style="color:var(--danger)">fe_data 최저(10 keV) 미만 &rarr; 루프 통과 &rarr; <strong>100 keV 값(0.3717) 반환</strong></td><td class="left" style="color:var(--warning)">처음 두 점(10, 15 keV)으로 외삽 &rarr; 712.4 <span style="color:var(--danger)">(K-edge 가로지름)</span></td></tr>
 </tbody></table>
-<p style="font-size:.82rem;color:var(--muted);margin-bottom:0">본 보고서의 Am-241, Cd-109 계산 결과에는 영향 없음 확인. 코드 전문에 수정사항 및 주석 반영 완료.</p>
+<h4>4차: Fe K-edge 구간 분리</h4>
+<p>Gemini 4차 검토에서 3차 수정의 외삽이 <strong>Fe K-edge(7.112 keV)를 가로질러</strong> &mu;/&rho;를 8배 과대평가(712 vs 실제 89)하는 문제를 추가 발견.</p>
+<table style="font-size:.82rem"><thead><tr><th>항목</th><th>3차 수정 (부분 오류)</th><th>4차 최종 수정</th></tr></thead><tbody>
+<tr><td class="left">Fe-55 &mu;/&rho;</td><td class="left" style="color:var(--warning)">712.4 cm&sup2;/g (K-edge 위 데이터로 외삽)</td><td class="left" style="color:var(--success)"><strong>89.25 cm&sup2;/g</strong> (NIST 5-6 keV 보간, K-edge 아래)</td></tr>
+<tr><td class="left">Fe-55 HVL<sub>Fe</sub></td><td class="left">1.2 &mu;m</td><td class="left"><strong>9.9 &mu;m</strong></td></tr>
+<tr><td class="left">실질적 영향</td><td colspan="2" class="left">두 값 모두 밀봉캡슐 0.5 mm 대비 완전차폐. <strong>보고서 결론에 영향 없음</strong>.</td></tr>
+</tbody></table>
+<p style="font-size:.82rem;color:var(--muted);margin-bottom:0">조치: fe_data에 K-edge 아래 NIST 데이터(5, 6 keV) 추가, K-edge 기준 구간 분리 보간 구현.</p>
 </div>
 
 <div class="card info"><strong>수치 풀이 방법</strong><br>
@@ -733,9 +747,9 @@ HVL<sub>Pb</sub> = 0.693 / 87.14 = 0.00795 cm <span class="result">= 0.080 mm</s
 &nbsp;&nbsp;<span class="result">= 5.457 R&middot;cm&sup2;/(mCi&middot;h) = 0.1293 &mu;Sv&middot;m&sup2;/(MBq&middot;h)</span><br>
 <span class="comment">단일 방출선이므로 컷오프와 전 스펙트럼 결과 동일. &mu;<sub>en</sub>/&rho; 값이 24.0으로 매우 커 &Gamma;가 높으나, 극저에너지라 공기 수 cm에서 대부분 흡수됨.</span><br><br>
 <span class="step">[철(Fe) 반가층]</span><br>
-&mu;/&rho;<sub>Fe</sub>(5.89 keV) = 712.4 cm&sup2;/g <span class="comment">(NIST 외삽, Gemini 수정 후)</span><br>
-&mu; = 712.4 &times; 7.874 = 5,610 cm<sup>&minus;1</sup><br>
-HVL<sub>Fe</sub> = 0.693 / 5,610 <span class="result">= 0.0012 mm (1.2 &mu;m)</span><br><br>
+&mu;/&rho;<sub>Fe</sub>(5.89 keV) = 89.25 cm&sup2;/g <span class="comment">(NIST 5-6 keV 보간, Fe K-edge 7.112 keV 아래)</span><br>
+&mu; = 89.25 &times; 7.874 = 702.8 cm<sup>&minus;1</sup><br>
+HVL<sub>Fe</sub> = 0.693 / 702.8 <span class="result">= 0.00099 mm (9.9 &mu;m)</span><br><br>
 <span class="step">[납(Pb) 반가층]</span><br>
 &mu;/&rho;<sub>Pb</sub>(5.89 keV) = 495.1 cm&sup2;/g<br>
 &mu; = 495.1 &times; 11.35 = 5,619 cm<sup>&minus;1</sup><br>
@@ -757,8 +771,8 @@ HVL<sub>Pb</sub> = 0.693 / 5,619 <span class="result">= 0.0012 mm (1.2 &mu;m)</s
 <tr class="highlight"><td rowspan="3">Am-241</td><td class="left"><strong>S&amp;S [R1]</strong></td><td class="num"><strong>0.749</strong></td><td class="num"><strong>0.01775</strong></td><td class="left">문헌값 (채택)</td></tr>
 <tr><td class="left">Claude NIST (전 스펙트럼)</td><td class="num">1.670</td><td class="num">0.03960</td><td class="left">ICRP 107 전 방출선, &times;2.23 차이 미해결</td></tr>
 <tr><td class="left">컷오프 (59.5 keV &gamma; only)</td><td class="num">0.126</td><td class="num">0.00298</td><td class="left">X-ray 90.7% 제거 &rarr; 비보수적</td></tr>
-<tr class="highlight"><td rowspan="3">Cd-109</td><td class="left"><strong>S&amp;S [R1]</strong></td><td class="num"><strong>0.858</strong></td><td class="num"><strong>0.02034</strong></td><td class="left">문헌값 (채택)</td></tr>
-<tr><td class="left">Claude NIST (전 스펙트럼)</td><td class="num">1.636</td><td class="num">0.03880</td><td class="left">ICRP 107 전 방출선, &times;1.91 차이 미해결</td></tr>
+<tr class="highlight"><td rowspan="3">Cd-109</td><td class="left"><strong>S&amp;S [R1]</strong></td><td class="num"><strong>1.890</strong></td><td class="num"><strong>0.04480</strong></td><td class="left">문헌값 (채택)</td></tr>
+<tr><td class="left">Claude NIST (전 스펙트럼)</td><td class="num">1.636</td><td class="num">0.03880</td><td class="left">S&amp;S 대비 13% 낮음 &mdash; 양호한 일치</td></tr>
 <tr><td class="left">컷오프 (88 keV &gamma; only)</td><td class="num">0.015</td><td class="num">0.00035</td><td class="left">X-ray 99.1% 제거 &rarr; 비보수적</td></tr>
 <tr class="highlight"><td rowspan="2">Fe-55</td><td class="left"><strong>Unger &amp; Trubey [R5]</strong></td><td class="num"><strong>5.295</strong></td><td class="num"><strong>0.12550</strong></td><td class="left">문헌값 (채택)</td></tr>
 <tr><td class="left">NIST 계산 (Y=0.200)</td><td class="num">5.457</td><td class="num">0.12934</td><td class="left">단일선 &rarr; 컷오프 동일. 3% 차이</td></tr>
@@ -770,16 +784,16 @@ HVL<sub>Pb</sub> = 0.693 / 5,619 <span class="result">= 0.0012 mm (1.2 &mu;m)</s
 <tr><td>Fe</td><td class="num">&mdash;</td><td class="num">0.020 mm</td><td class="num"><strong>0.716 mm</strong></td><td class="left">컷오프 = 36&times; 복합 (X-ray 지배 제거)</td></tr>
 <tr><td rowspan="2">Cd-109</td><td>Pb</td><td class="num">0.0109 mm</td><td class="num">0.0096 mm</td><td class="num"><strong>0.080 mm</strong></td><td class="left">K-edge 상단 적용 (하단 시 0.320 mm)</td></tr>
 <tr><td>Fe</td><td class="num">&mdash;</td><td class="num">0.048 mm</td><td class="num"><strong>1.809 mm</strong></td><td class="left">컷오프 = 38&times; 복합</td></tr>
-<tr><td rowspan="2">Fe-55</td><td>Pb</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num"><strong>0.0012 mm</strong></td><td class="left">어떤 금속이든 수 &mu;m면 완전차폐</td></tr>
-<tr><td>Fe</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num"><strong>0.0012 mm</strong></td><td class="left">밀봉캡슐 존재 시 기여 0</td></tr>
+<tr><td rowspan="2">Fe-55</td><td>Pb</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num"><strong>0.0012 mm</strong></td><td class="left">1.2 &mu;m &mdash; 어떤 금속이든 완전차폐</td></tr>
+<tr><td>Fe</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num"><strong>0.0099 mm</strong></td><td class="left">9.9 &mu;m (K-edge 아래) &mdash; 완전차폐</td></tr>
 </tbody></table>
 
 <h3>9.3 선량률 비교 (@1 m, 비차폐)</h3>
 <table><thead><tr><th>핵종</th><th>총 MBq</th><th>S&amp;S &Gamma; 기반<br>(&mu;Sv/h)</th><th>컷오프 &Gamma; 기반<br>(&mu;Sv/h)</th><th>비율</th></tr></thead><tbody>
 <tr><td>Am-241</td><td class="num">37,000</td><td class="num">657</td><td class="num">110</td><td class="num">0.17&times;</td></tr>
-<tr><td>Cd-109</td><td class="num">7,400</td><td class="num">151</td><td class="num">2.6</td><td class="num">0.017&times;</td></tr>
+<tr><td>Cd-109</td><td class="num">7,400</td><td class="num">332</td><td class="num">2.6</td><td class="num">0.008&times;</td></tr>
 <tr><td>Fe-55</td><td class="num">37,000</td><td class="num">4,644</td><td class="num">4,786</td><td class="num">1.03&times;</td></tr>
-<tr class="total"><td>합계</td><td></td><td class="num"><strong>5,451</strong></td><td class="num"><strong>4,898</strong></td><td class="num">0.90&times;</td></tr>
+<tr class="total"><td>합계</td><td></td><td class="num"><strong>5,633</strong></td><td class="num"><strong>4,898</strong></td><td class="num">0.87&times;</td></tr>
 </tbody></table>
 <p style="font-size:.82rem;color:var(--muted)">컷오프 방식은 Am-241, Cd-109의 X선 기여를 무시하므로 선량률이 S&amp;S 대비 크게 낮아진다. 선량률 평가에서는 S&amp;S 채택이 보수적으로 적절.</p>
 
@@ -795,19 +809,36 @@ HVL<sub>Pb</sub> = 0.693 / 5,619 <span class="result">= 0.0012 mm (1.2 &mu;m)</s
 </div>
 
 <div class="gemini-review">
-<span class="badge-gemini">교차검증 이력</span>
-<p style="margin-bottom:4px">본 평가는 <strong>Claude (NIST 전 스펙트럼 계산)</strong>와 <strong>Gemini (단일에너지 컷오프 계산)</strong> 간 3회 교차검증을 거쳤다.</p>
+<span class="badge-gemini">교차검증 이력 (4회차)</span>
+<p style="margin-bottom:4px">본 평가는 <strong>Claude (NIST 전 스펙트럼 계산)</strong>와 <strong>Gemini (단일에너지 컷오프 계산)</strong> 간 4회 교차검증을 거쳤다.</p>
 <table style="font-size:.82rem"><thead><tr><th>회차</th><th>내용</th><th>결과</th></tr></thead><tbody>
 <tr><td>1차</td><td class="left">Gemini가 Claude의 평가 보고서 v2 검토</td><td class="left">방법론 적정, S&amp;S 차이 원인 분석</td></tr>
 <tr><td>2차</td><td class="left">Claude가 Gemini의 감마상수/HVL 계산 검산</td><td class="left">X선 누락(critical), K-edge 처리, Fe-55 Y값 차이 지적</td></tr>
 <tr><td>3차</td><td class="left">Gemini가 Claude 지적 전면 수용 + 코드 버그 발견</td><td class="left">fallback 버그 수정, 컷오프 방식 수계산 채택 합의</td></tr>
+<tr><td>4차</td><td class="left">Gemini가 수정된 코드 및 보고서 재검토 (4건 지적)</td><td class="left">아래 상세 참조</td></tr>
+</tbody></table>
+
+<h4 style="color:#553c9a;margin-top:16px">4차 교차검증 상세</h4>
+<table style="font-size:.82rem"><thead><tr><th>#</th><th>Gemini 지적</th><th>Claude 판정</th><th>조치</th></tr></thead><tbody>
+<tr><td>1</td><td class="left"><strong>Fe K-edge(7.112 keV) 외삽 오류</strong><br>10-15 keV(K-edge 위) 데이터로 5.89 keV(K-edge 아래) 외삽 &rarr; &mu;/&rho;=712 (실제 89, 8&times; 과대)</td>
+<td class="left" style="color:var(--success)"><strong>타당</strong><br>물리적 오류 맞음. 실질적 영향은 없으나(두 값 모두 완전차폐) 코드 정확도 확보 필요</td>
+<td class="left">fe_data에 K-edge 아래 NIST 데이터(5, 6 keV) 추가, K-edge 구간 분리 보간 구현</td></tr>
+<tr><td>2</td><td class="left"><strong>Fe-55 공기감쇠 누락</strong><br>5.89 keV X선의 1m 공기 투과율 5.5% &rarr; 선량률 94.5% 과대</td>
+<td class="left" style="color:var(--warning)"><strong>사실이나 오류 아님</strong><br>&sect;3.1/&sect;5.1에 &quot;공기감쇠 미고려&quot; 명시. 감마상수 기반 평가의 표준 방법론(보수적 가정)</td>
+<td class="left">&sect;5.1에 Fe-55 공기감쇠 참고 주석 추가 (T=0.055, 실제 ~257 &mu;Sv/h)</td></tr>
+<tr><td>3</td><td class="left"><strong>최보수적 원칙 위배</strong><br>NIST 계산값(&Gamma;=0.0396)이 더 높은데 S&amp;S(&Gamma;=0.01775) 채택은 모순. &quot;S&amp;S가 15 keV 컷오프 적용&quot;이라고 주장</td>
+<td class="left" style="color:var(--danger)"><strong>부분 타당 / 핵심 주장 거짓</strong><br>Am-241은 NIST&gt;S&amp;S로 일리 있으나, Cd-109는 S&amp;S(0.04480)&gt;NIST(0.0388)로 S&amp;S가 보수적.<br><strong>&quot;S&amp;S 15 keV 컷오프&quot; 주장은 근거 없음</strong> &mdash; S&amp;S(2012)는 &delta;=0 (전 에너지 포함) 명시. 15 keV 컷오프 적용해도 0.951 R로 S&amp;S의 0.749 R 설명 불가.</td>
+<td class="left">Am-241 불일치(2.23&times;)는 미해결 상태로 유지. peer-reviewed 문헌 우선 원칙 적용. 어떤 값이든 10<sup>&minus;6</sup> 결론 불변.</td></tr>
+<tr><td>4</td><td class="left"><strong>Cd-109 X-ray 방출률 오기</strong><br>~83% &rarr; K&alpha;만 합산. K&beta; 포함 시 99.2%</td>
+<td class="left" style="color:var(--success)"><strong>타당</strong><br>0.290+0.553=0.843(K&alpha;만). K&beta; 포함 0.992</td>
+<td class="left">&sect;4.1 및 &sect;4.2에서 83% &rarr; 99.2% 수정</td></tr>
 </tbody></table>
 </div>
 
 </div></section>
 
 <section id="s10"><div class="container"><h2>10. 결론</h2>
-<div class="card success" style="font-size:1rem"><h4 style="margin-top:0">&ensp; 저장시설 경계면 선량률</h4><p>3핵종 추가분은 비차폐(최보수적) 조건에서도 기존 저장선원의 <strong>3.4 &times; 10<sup>&minus;6</sup></strong> 수준이며, 기존 평가 결과의 유효숫자 범위 내이므로 <strong>평가 결과 변동 없음</strong>.</p><h4>&ensp; 차폐 특성</h4><p>밀봉캡슐 벽(0.5~2 mm 금속)에 의해 저에너지 X선 성분(Am-241 L X-ray, Cd-109 Ag K X-ray, Fe-55 Mn K X-ray)은 사실상 <strong>완전 차폐</strong>되며, 실제 선량은 본 비차폐 평가의 극히 일부에 불과하다.</p><h4>&ensp; 취급 시 접촉 선량률</h4><p>IAEA RS-G-1.9 등급분류 체계에 의해 이미 평가되어 있으며, 기존 1·2등급 선원 취급절차로 <strong>안전성 담보됨</strong>.</p></div>
+<div class="card success" style="font-size:1rem"><h4 style="margin-top:0">&ensp; 저장시설 경계면 선량률</h4><p>3핵종 추가분은 비차폐(최보수적) 조건에서도 기존 저장선원의 <strong>3.6 &times; 10<sup>&minus;6</sup></strong> 수준이며, 기존 평가 결과의 유효숫자 범위 내이므로 <strong>평가 결과 변동 없음</strong>.</p><h4>&ensp; 차폐 특성</h4><p>밀봉캡슐 벽(0.5~2 mm 금속)에 의해 저에너지 X선 성분(Am-241 L X-ray, Cd-109 Ag K X-ray, Fe-55 Mn K X-ray)은 사실상 <strong>완전 차폐</strong>되며, 실제 선량은 본 비차폐 평가의 극히 일부에 불과하다.</p><h4>&ensp; 취급 시 접촉 선량률</h4><p>IAEA RS-G-1.9 등급분류 체계에 의해 이미 평가되어 있으며, 기존 1·2등급 선원 취급절차로 <strong>안전성 담보됨</strong>.</p></div>
 </div></section>
 
 <section id="evidence"><div class="container"><h2>부록: 원본 데이터 출처 근거</h2>
@@ -819,7 +850,7 @@ HVL<sub>Pb</sub> = 0.693 / 5,619 <span class="result">= 0.0012 mm (1.2 &mu;m)</s
 <strong>PubMed</strong>: <a href="https://pubmed.ncbi.nlm.nih.gov/22420019/" target="_blank">PMID 22420019</a></div>
 <table><thead><tr><th>핵종</th><th>&Gamma;<sub>R</sub> [R&middot;cm&sup2;/(mCi&middot;h)]</th><th>&Gamma; [&mu;Sv&middot;m&sup2;/(MBq&middot;h)]</th><th>Table 1 위치</th></tr></thead><tbody>
 <tr><td>Am-241</td><td class="num">0.749</td><td class="num">0.01775</td><td class="left">Am-241 행</td></tr>
-<tr><td>Cd-109</td><td class="num">0.858</td><td class="num">0.02034</td><td class="left">Cd-109 행</td></tr>
+<tr><td>Cd-109</td><td class="num">1.890</td><td class="num">0.04480</td><td class="left">Cd-109 행 (SI: 3.66&times;10<sup>&minus;13</sup>)</td></tr>
 <tr><td>Co-60</td><td class="num">12.90</td><td class="num">0.3059</td><td class="left">Co-60 행 (비교기준)</td></tr>
 <tr><td>Ir-192</td><td class="num">4.603</td><td class="num">0.1091</td><td class="left">Ir-192 행 (비교기준)</td></tr>
 <tr><td>Se-75</td><td class="num">1.831</td><td class="num">0.0434</td><td class="left">Se-75 행 (비교기준)</td></tr>
@@ -880,10 +911,10 @@ Hubbell, J.H. &amp; Seltzer, S.M., "Tables of X-Ray Mass Attenuation Coefficient
 <strong>Table 5</strong>: ICRP 107 + ICRP 116 유효선량(AP) 기반 specific gamma-ray dose constants</div>
 <table><thead><tr><th>핵종</th><th>Peplow &Gamma; [mSv/(h&middot;MBq)]</th><th>본 평가 &Gamma; (공기커마)</th><th>비율</th></tr></thead><tbody>
 <tr><td>Am-241</td><td class="num">6.029&times;10<sup>&minus;6</sup></td><td class="num">0.01775 &mu;Sv = 1.775&times;10<sup>&minus;5</sup> mSv</td><td class="num">2.95&times;</td></tr>
-<tr><td>Cd-109</td><td class="num">7.686&times;10<sup>&minus;6</sup></td><td class="num">0.02034 &mu;Sv = 2.034&times;10<sup>&minus;5</sup> mSv</td><td class="num">2.65&times;</td></tr>
+<tr><td>Cd-109</td><td class="num">7.686&times;10<sup>&minus;6</sup></td><td class="num">0.04480 &mu;Sv = 4.480&times;10<sup>&minus;5</sup> mSv</td><td class="num">5.83&times;</td></tr>
 <tr><td>Fe-55</td><td class="num">2.340&times;10<sup>&minus;14</sup></td><td class="num">0.1255 &mu;Sv = 1.255&times;10<sup>&minus;4</sup> mSv</td><td class="num">&infin;</td></tr>
 </tbody></table>
-<p style="font-size:.85rem">공기커마 / 유효선량 비율이 2~3배인 것은 에너지별 K<sub>a</sub> &rarr; E 환산계수 차이로 정상이다. Fe-55의 극단적 비율은 5.9 keV 광자가 인체에 흡수되지 못하기 때문이다.</p>
+<p style="font-size:.85rem">공기커마 / 유효선량 비율이 2~6배인 것은 에너지별 K<sub>a</sub> &rarr; E 환산계수 차이로 정상이다. Fe-55의 극단적 비율은 5.9 keV 광자가 인체에 흡수되지 못하기 때문이다.</p>
 
 <h3>D. ICRP Publication 107 [R3]</h3>
 <div class="card info"><strong>출처</strong>: ICRP Publication 107, Annals of the ICRP 38(3), 2008<br>
@@ -985,12 +1016,15 @@ air_data = [
     (50, 0.04098), (60, 0.03041), (80, 0.02407), (100, 0.02325)
 ]
 
-# NIST Iron mu/rho (keV, cm^2/g) - above K-edge 7.112 keV
+# NIST Iron mu/rho (keV, cm^2/g)
 # Source: https://physics.nist.gov/PhysRefData/XrayMassCoef/ElemTab/z26.html
-fe_data = [
+# [Gemini 4차] K-edge(7.112 keV) 구간 분리 — K-edge 가로지르는 보간 방지
+fe_data_below_k = [(5, 139.8), (6, 84.84)]           # K-edge 아래
+fe_data_above_k = [
     (10, 170.6), (15, 57.08), (20, 25.68), (30, 8.176),
     (40, 3.629), (50, 1.958), (60, 1.205), (80, 0.5952), (100, 0.3717)
 ]
+FE_K_EDGE = 7.112  # keV
 rho_fe = 7.874  # g/cm^3
 
 # NIST Lead mu/rho - with edge handling
@@ -1025,18 +1059,22 @@ def get_pb_mu(E):
         return log_interp(E, 100, 5.549, 150, 2.014)
 
 def get_fe_mu(E):
-    # [Gemini 교차검증 수정] E &lt; 10 keV 시 100 keV 값 반환 버그 수정
-    # Fe-55(5.89 keV) 입력 시 0.3717 대신 712.4 반환 (1,916배 차이)
-    if E &lt; fe_data[0][0]:
-        e1, m1 = fe_data[0]
-        e2, m2 = fe_data[1]
+    # [Gemini 3차] fallback 버그 수정
+    # [Gemini 4차] K-edge(7.112 keV) 구간 분리 — 가로지르는 보간 방지
+    if E &lt; FE_K_EDGE:
+        data = fe_data_below_k
+    else:
+        data = fe_data_above_k
+    if E &lt; data[0][0]:
+        e1, m1 = data[0]
+        e2, m2 = data[1]
         return log_interp(E, e1, m1, e2, m2)
-    for i in range(len(fe_data)-1):
-        e1, m1 = fe_data[i]
-        e2, m2 = fe_data[i+1]
+    for i in range(len(data)-1):
+        e1, m1 = data[i]
+        e2, m2 = data[i+1]
         if e1 &lt;= E &lt;= e2:
             return log_interp(E, e1, m1, e2, m2)
-    return fe_data[-1][1]
+    return data[-1][1]
 
 def get_air_muen(E):
     # [Gemini 교차검증 수정] 동일 fallback 버그. 범위 이하 → 외삽 처리.

@@ -129,9 +129,9 @@ for name, lines in [("Am-241", am241_lines), ("Cd-109", cd109_lines)]:
     if name == "Am-241":
         ss_R = 0.749
         ss_uSv = 0.01775
-    else:
-        ss_R = 0.858
-        ss_uSv = 0.02034
+    else:  # Cd-109
+        ss_R = 1.890   # v3 정정: 0.858은 오독. SI열 3.66e-13 역산 검증 완료.
+        ss_uSv = 0.04480
 
     print(f"\n--- Comparison with Smith & Stabin ---")
     print(f"  NIST calc: {gamma_R:.3f} R*cm^2/(mCi*h) = {gamma_final:.4f} uSv*m^2/(MBq*h)")

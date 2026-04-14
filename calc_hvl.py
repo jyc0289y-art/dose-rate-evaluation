@@ -11,11 +11,19 @@ air_data = [
     (50, 0.04098), (60, 0.03041), (80, 0.02407), (100, 0.02325)
 ]
 
-# NIST Iron mu/rho (keV, cm^2/g) - above K-edge 7.112 keV
-fe_data = [
+# NIST Iron mu/rho (keV, cm^2/g)
+# Source: https://physics.nist.gov/PhysRefData/XrayMassCoef/ElemTab/z26.html
+# [Gemini 4차 검증] K-edge(7.112 keV) 아래 데이터(5, 6 keV) 추가.
+# 기존 코드는 10 keV부터만 수록하여 Fe-55(5.89 keV) 계산 시
+# K-edge를 가로질러 외삽 → μ/ρ 8배 과대평가(712 vs 실제 89).
+fe_data_below_k = [
+    (5, 139.8), (6, 84.84),           # K-edge(7.112 keV) 아래
+]
+fe_data_above_k = [
     (10, 170.6), (15, 57.08), (20, 25.68), (30, 8.176),
     (40, 3.629), (50, 1.958), (60, 1.205), (80, 0.5952), (100, 0.3717)
 ]
+FE_K_EDGE = 7.112  # keV
 rho_fe = 7.874
 
 # Lead segments with edge handling
@@ -48,20 +56,24 @@ def get_pb_mu(E):
         return log_interp(E, 100, 5.549, 150, 2.014)
 
 def get_fe_mu(E):
-    # [Gemini 교차검증 수정] 원래 코드는 E < fe_data[0][0] 일 때 루프를 통과하여
-    # fe_data[-1][1] (100 keV 값)을 반환하는 버그가 있었음.
-    # 예: Fe-55 (5.89 keV) 입력 시 → μ/ρ=0.3717 (100 keV) 반환 → 차폐 1,916배 과소평가.
-    # 수정: 배열 범위 이하 에너지에 대해 처음 두 점으로 log-log 외삽 적용.
-    if E < fe_data[0][0]:
-        e1, m1 = fe_data[0]
-        e2, m2 = fe_data[1]
+    # [Gemini 3차] fallback 버그 수정 (범위 이탈 시 100 keV 값 반환)
+    # [Gemini 4차] K-edge(7.112 keV) 구간 분리 — K-edge 가로지르는 보간/외삽 방지
+    #   기존 코드는 10-15 keV(K-edge 위) 데이터로 5.89 keV(K-edge 아래) 외삽
+    #   → μ/ρ=712 (실제 89, 8배 과대). NIST 5,6 keV 데이터 명시 추가로 해결.
+    if E < FE_K_EDGE:
+        data = fe_data_below_k
+    else:
+        data = fe_data_above_k
+    if E < data[0][0]:
+        e1, m1 = data[0]
+        e2, m2 = data[1]
         return log_interp(E, e1, m1, e2, m2)
-    for i in range(len(fe_data)-1):
-        e1, m1 = fe_data[i]
-        e2, m2 = fe_data[i+1]
+    for i in range(len(data)-1):
+        e1, m1 = data[i]
+        e2, m2 = data[i+1]
         if e1 <= E <= e2:
             return log_interp(E, e1, m1, e2, m2)
-    return fe_data[-1][1]
+    return data[-1][1]
 
 def get_air_muen(E):
     # [Gemini 교차검증 수정] 동일한 fallback 버그. 범위 이하 에너지 → 외삽 처리.
