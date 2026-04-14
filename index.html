@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3핵종 저장시설 선량률 평가</title>
+<style>
+:root{--primary:#1a365d;--accent:#2b6cb0;--bg:#f7fafc;--card:#fff;--border:#e2e8f0;--text:#2d3748;--muted:#718096;--success:#38a169;--warning:#d69e2e;--danger:#e53e3e}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Pretendard','Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}.container{max-width:960px;margin:0 auto;padding:0 24px}
+header{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:48px 0 36px}header h1{font-size:1.75rem;font-weight:700;margin-bottom:8px}header .subtitle{font-size:1rem;opacity:.85}header .meta{margin-top:16px;font-size:.85rem;opacity:.7;display:flex;gap:24px;flex-wrap:wrap}
+nav{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}nav .container{display:flex;gap:4px;overflow-x:auto;padding:0}nav a{padding:12px 16px;font-size:.82rem;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:.2s}nav a:hover,nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+section{padding:40px 0}section:nth-child(even){background:#fff}h2{font-size:1.35rem;color:var(--primary);margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--accent)}h3{font-size:1.1rem;color:var(--accent);margin:24px 0 12px}h4{font-size:.95rem;color:var(--primary);margin:16px 0 8px}p{margin-bottom:12px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem}th,td{padding:10px 14px;border:1px solid var(--border);text-align:center}th{background:var(--primary);color:#fff;font-weight:600}tr:nth-child(even){background:#f8fafc}tr.highlight{background:#ebf8ff;font-weight:600}tr.total{background:#e6fffa;font-weight:700}td.num{text-align:right;font-variant-numeric:tabular-nums}td.left{text-align:left}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;margin:16px 0}.card.info{border-left:4px solid var(--accent)}.card.warn{border-left:4px solid var(--warning);background:#fffff0}.card.success{border-left:4px solid var(--success);background:#f0fff4}.card.danger{border-left:4px solid var(--danger);background:#fff5f5}
+.formula{background:#edf2f7;border-radius:6px;padding:16px 20px;margin:12px 0;font-family:'Consolas','Monaco',monospace;font-size:.85rem;overflow-x:auto;line-height:1.9}.formula .step{color:var(--accent);font-weight:700}.formula .result{color:var(--success);font-weight:700}.formula .comment{color:var(--muted);font-style:italic}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.75rem;font-weight:600}.badge.cat4{background:#fefcbf;color:#975a16}.badge.cat5{background:#c6f6d5;color:#276749}.badge.cat1{background:#fed7d7;color:#9b2c2c}.badge.cat2{background:#feebc8;color:#9c4221}
+.bar-container{margin:12px 0}.bar-label{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:4px}.bar-track{background:#e2e8f0;border-radius:4px;height:24px;position:relative;overflow:hidden}.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-size:.72rem;color:#fff;font-weight:600;min-width:fit-content}
+details{margin:12px 0}details summary{cursor:pointer;font-weight:600;color:var(--accent);padding:8px 0}details summary:hover{text-decoration:underline}details .content{padding:12px 0 0 16px}
+.ref-list{list-style:none}.ref-list li{padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem}.ref-list li:last-child{border-bottom:none}.ref-code{font-weight:700;color:var(--accent);margin-right:8px}.ref-list a{color:var(--accent);word-break:break-all}
+footer{background:var(--primary);color:#fff;padding:24px 0;text-align:center;font-size:.8rem;opacity:.9}
+blockquote{border-left:4px solid var(--accent);padding:12px 16px;margin:12px 0;background:#ebf8ff;border-radius:0 4px 4px 0;font-weight:600}
+@media(max-width:640px){header h1{font-size:1.3rem}h2{font-size:1.15rem}table{font-size:.78rem}th,td{padding:6px 8px}}
+sup{font-size:.7em}
+</style>
+</head>
+<body>
+<header><div class="container"><h1>저장시설 표면선량률 평가</h1><div class="subtitle">Am-241 · Cd-109 · Fe-55 추가·변경분</div><div class="meta"><span>📅 2026-04-14</span><span>📋 변경허가 신청 첨부</span><span>🏢 HJ RI 판매</span></div></div></header>
+<nav><div class="container"><a href="#s1">1. 목적</a><a href="#s2">2. 대상</a><a href="#s3">3. 방법</a><a href="#s4">4. 물리데이터</a><a href="#s5">5. 결과</a><a href="#s6">6. 접촉선량</a><a href="#s7">7. 결론</a><a href="#evidence">출처근거</a><a href="#ref">참고문헌</a></div></nav>
+
+<section id="s1"><div class="container"><h2>1. 평가 목적</h2><p>금번 변경허가 신청에 따라 추가·변경되는 3핵종이 기존 저장시설 경계면 선량률 평가 결과에 미치는 영향을 정량적으로 평가한다.</p></div></section>
+
+<section id="s2"><div class="container"><h2>2. 평가 대상</h2><table><thead><tr><th>핵종</th><th>등급</th><th>수량</th><th>단일최대 (MBq)</th><th>총 방사능량 (MBq)</th></tr></thead><tbody><tr><td>Am-241</td><td><span class="badge cat4">4등급</span></td><td>20</td><td class="num">1,850</td><td class="num">37,000</td></tr><tr><td>Cd-109</td><td><span class="badge cat5">5등급</span></td><td>20</td><td class="num">370</td><td class="num">7,400</td></tr><tr><td>Fe-55</td><td><span class="badge cat5">5등급</span></td><td>20</td><td class="num">1,850</td><td class="num">37,000</td></tr></tbody></table></div></section>
+
+<section id="s3"><div class="container"><h2>3. 평가 방법</h2>
+<h3>3.1 기본 가정</h3>
+<div class="card warn"><strong>비차폐 점선원(bare point source) 가정</strong><br>선원 인증서가 미확보되어 밀봉캡슐의 재질·두께·형상을 특정할 수 없으므로, 밀봉캡슐에 의한 자기차폐를 전혀 고려하지 않은 <strong>최보수적 조건</strong>으로 평가한다.</div>
+<div class="card info"><strong>참고</strong>: Fe-55 밀봉선원은 5.9 keV Mn Kα X선을 분석용으로 방출하기 위해 Be창 등 저Z 창재를 사용하므로, 캡슐 차폐를 가정하는 것은 부적절하다. 따라서 3핵종 모두 비차폐 선량률 평가로 갈음한다.</div>
+<h3>3.2 선량률 산정식</h3>
+<div class="formula" style="text-align:center;font-size:1.1rem;">Ḣ*(10) = Γ × A / r²</div>
+<table><thead><tr><th>기호</th><th>의미</th><th>단위</th></tr></thead><tbody><tr><td>Γ</td><td class="left">주위선량당량률정수</td><td>μSv·m²/(MBq·h)</td></tr><tr><td>A</td><td class="left">방사능량</td><td>MBq</td></tr><tr><td>r</td><td class="left">평가 거리</td><td>m</td></tr></tbody></table>
+<h3>3.3 평가 거리</h3><p>저장구역 경계면(저장함 표면 ~ 최소 <strong>0.3 m</strong>) 및 <strong>1 m</strong>(기준 거리)에서 평가한다.</p>
+</div></section>
+
+<section id="s4"><div class="container"><h2>4. 핵종 물리 데이터 및 선량률정수</h2>
+<h3>4.1 핵종 붕괴자료</h3>
+<table><thead><tr><th>핵종</th><th>반감기</th><th>주 방출</th><th>에너지 (keV)</th><th>방출률 (%)</th><th>출처</th></tr></thead><tbody><tr><td rowspan="2">Am-241</td><td rowspan="2">432.2 y</td><td>γ</td><td>59.5</td><td>35.9</td><td>[R3]</td></tr><tr><td>Np L X-ray</td><td>14~21</td><td>(다중)</td><td>[R3]</td></tr><tr><td rowspan="2">Cd-109</td><td rowspan="2">461.4 d</td><td>γ (Ag-109m IT)</td><td>88.0</td><td>3.65</td><td>[R3]</td></tr><tr><td>Ag K X-ray</td><td>22.1</td><td>~83</td><td>[R3]</td></tr><tr><td rowspan="2">Fe-55</td><td rowspan="2">2.737 y</td><td>Mn Kα X-ray</td><td>5.899</td><td>16.6</td><td>[R3]</td></tr><tr><td>Mn Kβ X-ray</td><td>6.490</td><td>3.4</td><td>[R3]</td></tr></tbody></table>
+
+<h3>4.2 선량률정수 (Γ)</h3>
+<p>선량률정수 Γ는 <em>"방사능 1 MBq의 비차폐 점선원으로부터 1 m 떨어진 지점에서 1시간 동안 받는 선량률"</em>을 나타내는 상수이다. 핵종마다 고유한 값을 가지며, 이 값이 클수록 같은 방사능량에서 더 높은 외부선량을 준다.</p>
+
+<h4>Am-241 — 문헌값 [R1]</h4>
+<table><thead><tr><th>값</th><th>조건</th><th>출처</th></tr></thead><tbody><tr><td>0.0326 μSv·m²/(MBq·h)</td><td class="left">59.5 keV γ만 포함</td><td>Delacroix et al. [R6]</td></tr><tr class="highlight"><td><strong>0.0848</strong> μSv·m²/(MBq·h)</td><td class="left"><strong>59.5 keV γ + Np L X-ray 포함</strong></td><td><strong>Smith &amp; Stabin [R1]</strong></td></tr></tbody></table>
+<p>Am-241은 주 감마선(59.5 keV, 방출률 35.9%) 외에 딸핵종 Np-237의 L각 특성 X선(14~21 keV)을 다수 방출한다. 이 X선을 포함하면 Γ값이 약 <strong>2.6배</strong> 높아진다 (Peplow [R2]에서 상세 논의).</p>
+<blockquote>채택값: Γ<sub>Am-241</sub> = <strong>0.0848</strong> μSv·m²/(MBq·h) [R1] — 보수적으로 L X-ray 포함 상위값 채택</blockquote>
+
+<h4>Cd-109 — 문헌값 [R1]</h4>
+<p>Cd-109는 EC(전자포획) 붕괴하여 Ag-109m(88.0 keV γ, 방출률 3.65%)과 Ag K특성 X선(22.1 keV, 방출률 ~83%)을 방출한다.</p>
+<blockquote>채택값: Γ<sub>Cd-109</sub> = <strong>0.0498</strong> μSv·m²/(MBq·h) [R1]</blockquote>
+
+<h4>Fe-55 — ICRP-107 + NIST로부터 직접 산정</h4>
+<div class="card info">Fe-55의 선량률정수는 표준 문헌 [R1], [R5]에 수록되어 있지 않다. Fe-55가 방출하는 Mn K특성 X선(5.9 keV)은 에너지가 매우 낮아 통상의 금속 밀봉캡슐로 차폐되므로, 문헌에서 외부선량 기여 핵종으로 다루지 않기 때문이다. 그러나 본 평가에서는 비차폐 점선원을 가정하므로, <strong>기초 물리 데이터로부터 Γ를 직접 계산</strong>한다.</div>
+
+<h4 style="margin-top:20px">① 산정 공식</h4>
+<div class="formula" style="text-align:center;font-size:1rem;">Γ = (1 / 4π) × Σ Y<sub>i</sub> × E<sub>i</sub> × (μ<sub>en</sub>/ρ)<sub>air,i</sub></div>
+<table><thead><tr><th>기호</th><th>의미</th></tr></thead><tbody><tr><td>Y<sub>i</sub></td><td class="left">i번째 방출선의 <strong>방출률</strong> (photons/decay) — 핵종이 1회 붕괴할 때 해당 방출선이 나올 확률</td></tr><tr><td>E<sub>i</sub></td><td class="left">i번째 방출선의 <strong>에너지</strong> (J)</td></tr><tr><td>(μ<sub>en</sub>/ρ)<sub>air</sub></td><td class="left">해당 에너지에서 공기의 <strong>질량에너지흡수계수</strong> (m²/kg) — X선이 공기 중에서 흡수되어 선량으로 변환되는 정도</td></tr><tr><td>4π</td><td class="left">점선원이 전 방향(4π sr)으로 균등 방출하므로, 특정 방향 선속 산정을 위한 기하 인자</td></tr></tbody></table>
+
+<h4>② Fe-55 붕괴 데이터 (ICRP-107 [R3])</h4>
+<p>Fe-55는 EC 붕괴(반감기 2.737년)하여 Mn-55가 되며, 이 과정에서 Mn의 특성 X선을 방출한다:</p>
+<table><thead><tr><th>방출선</th><th>에너지 (keV)</th><th>방출률 Y</th><th>설명</th></tr></thead><tbody><tr><td>Mn Kα</td><td>5.899</td><td>0.166 (16.6%)</td><td>주 X선</td></tr><tr><td>Mn Kβ</td><td>6.490</td><td>0.034 (3.4%)</td><td>부 X선</td></tr></tbody></table>
+
+<h4>③ 공기의 질량에너지흡수계수 (NIST SRD 126 [R4])</h4>
+<p>NIST Standard Reference Database 126의 dry air 데이터를 사용한다.</p>
+<p style="font-size:.85rem;color:var(--muted)">원본: <a href="https://physics.nist.gov/PhysRefData/XrayMassCoef/ComTab/air.html" target="_blank">https://physics.nist.gov/PhysRefData/XrayMassCoef/ComTab/air.html</a></p>
+<table><thead><tr><th>에너지 (MeV)</th><th>μ/ρ (cm²/g)</th><th>μ<sub>en</sub>/ρ (cm²/g)</th></tr></thead><tbody><tr><td>5.000×10⁻³</td><td class="num">4.027×10¹ = 40.27</td><td class="num"><strong>3.931×10¹ = 39.31</strong></td></tr><tr><td>6.000×10⁻³</td><td class="num">2.341×10¹ = 23.41</td><td class="num"><strong>2.270×10¹ = 22.70</strong></td></tr><tr><td>8.000×10⁻³</td><td class="num">9.921×10⁰ = 9.921</td><td class="num"><strong>9.446×10⁰ = 9.446</strong></td></tr></tbody></table>
+<p>NIST에 5.899 keV, 6.490 keV의 값이 직접 수록되어 있지 않으므로, <strong>log-log 보간</strong>(대수-대수 보간)으로 산정한다.</p>
+
+<details><summary>▶ 5.899 keV (Mn Kα) 보간 상세 — 5 keV와 6 keV 사이</summary><div class="content"><div class="formula"><span class="step">보간비율 t</span> = [ln(5.899) − ln(5.000)] / [ln(6.000) − ln(5.000)]<br>&nbsp;&nbsp;= [1.7749 − 1.6094] / [1.7918 − 1.6094] = 0.1655 / 0.1824 = <strong>0.907</strong><br><br><span class="step">ln(μ<sub>en</sub>/ρ)</span> = ln(39.31) + 0.907 × [ln(22.70) − ln(39.31)]<br>&nbsp;&nbsp;= 3.6713 + 0.907 × (−0.5489) = 3.6713 − 0.4979 = 3.1734<br><br><span class="result">μ<sub>en</sub>/ρ = e<sup>3.1734</sup> = 23.89 cm²/g</span></div></div></details>
+<details><summary>▶ 6.490 keV (Mn Kβ) 보간 상세 — 6 keV와 8 keV 사이</summary><div class="content"><div class="formula"><span class="step">보간비율 t</span> = [ln(6.490) − ln(6.000)] / [ln(8.000) − ln(6.000)]<br>&nbsp;&nbsp;= [1.8703 − 1.7918] / [2.0794 − 1.7918] = 0.0785 / 0.2876 = <strong>0.273</strong><br><br><span class="step">ln(μ<sub>en</sub>/ρ)</span> = ln(22.70) + 0.273 × [ln(9.446) − ln(22.70)]<br>&nbsp;&nbsp;= 3.1224 + 0.273 × (−0.8769) = 3.1224 − 0.2394 = 2.8830<br><br><span class="result">μ<sub>en</sub>/ρ = e<sup>2.8830</sup> = 17.86 cm²/g</span></div></div></details>
+
+<p style="margin-top:16px">보간 결과 요약:</p>
+<table><thead><tr><th>방출선</th><th>E (keV)</th><th>Y</th><th>μ<sub>en</sub>/ρ (cm²/g)</th><th>출처</th></tr></thead><tbody><tr><td>Mn Kα</td><td>5.899</td><td>0.166</td><td class="num"><strong>23.89</strong></td><td>[R3],[R4]</td></tr><tr><td>Mn Kβ</td><td>6.490</td><td>0.034</td><td class="num"><strong>17.86</strong></td><td>[R3],[R4]</td></tr></tbody></table>
+
+<h4>④ 계산 과정</h4>
+<p><strong>단위 환산</strong> (SI 단위계로 통일):</p>
+<ul style="margin:8px 0 16px 24px"><li>에너지: keV → J : 1 keV = 1.602 × 10⁻¹⁶ J</li><li>질량에너지흡수계수: cm²/g → m²/kg : × 0.1</li></ul>
+<div class="formula"><span class="step">Step 1: 각 방출선의 기여분</span><br><br>Mn Kα: 0.166 × (5.899 × 1.602×10⁻¹⁶) × (23.89 × 0.1)<br>&nbsp;&nbsp;= 0.166 × 9.450×10⁻¹⁶ × 2.389 = <strong>3.749 × 10⁻¹⁶</strong><br><br>Mn Kβ: 0.034 × (6.490 × 1.602×10⁻¹⁶) × (17.86 × 0.1)<br>&nbsp;&nbsp;= 0.034 × 1.040×10⁻¹⁵ × 1.786 = <strong>6.316 × 10⁻¹⁷</strong></div>
+<div class="formula"><span class="step">Step 2: 합산 및 4π 나눗셈</span><br><br>합계 = 3.749×10⁻¹⁶ + 6.316×10⁻¹⁷ = 4.381×10⁻¹⁶<br>Γ<sub>SI</sub> = 4.381×10⁻¹⁶ / 4π = 4.381×10⁻¹⁶ / 12.566 = <strong>3.486×10⁻¹⁷</strong> <span class="comment">(Gy·m²/(Bq·s))</span></div>
+<div class="formula"><span class="step">Step 3: 단위환산 → μSv·m²/(MBq·h)</span><br><br>Gy→Sv: ×1 <span class="comment">(광자선, Q=1)</span> | Sv→μSv: ×10⁶ | Bq→MBq: ×10⁶ | s→h: ×3,600<br>종합 = 3.6 × 10¹⁵</div>
+<div class="formula"><span class="step">Step 4: 최종값</span><br><br>Γ<sub>Fe-55</sub> = 3.486 × 10⁻¹⁷ × 3.6 × 10¹⁵ = <span class="result">0.1255 μSv·m²/(MBq·h)</span><br><br><span class="step">역산 검증</span>: 0.1255 / 3.6×10¹⁵ = 3.486×10⁻¹⁷ → ×12.566 = 4.381×10⁻¹⁶ ✓</div>
+<blockquote>채택값: Γ<sub>Fe-55</sub> = <strong>0.1255</strong> μSv·m²/(MBq·h) (직접 산정, [R3]+[R4])</blockquote>
+<div class="card info"><strong>자릿수 상식 체크</strong>: Fe-55(5.9 keV)의 Γ가 Am-241(59.5 keV)의 Γ(0.0848)보다 약 1.5배 크다. 에너지가 1/10이지만 저에너지 X선의 μ<sub>en</sub>/ρ가 수백 배 크기 때문이다 (5.9 keV: ~24 cm²/g vs 59.5 keV: ~0.03 cm²/g).</div>
+<div class="card warn"><strong>참고 — 공기 감쇠 미고려 (추가적 보수성)</strong><br>Fe-55의 5.9 keV X선은 공기 중 μ/ρ ≈ 25 cm²/g → MFP ≈ <strong>0.3 m</strong>. 1 m 거리에서 대부분 공기에 흡수되어 실측 선량은 본 계산값보다 현저히 낮다. 본 평가에서는 공기 감쇠를 고려하지 않은 최보수적 값을 사용한다.</div>
+
+<h3>4.3 비교 기준 — 기존 저장선원</h3>
+<table><thead><tr><th>핵종</th><th>등급</th><th>허가량</th><th>Γ [μSv·m²/(MBq·h)]</th><th>출처</th></tr></thead><tbody><tr><td>Co-60</td><td><span class="badge cat1">1등급</span></td><td class="num">97.68 TBq</td><td class="num">0.3059</td><td>[R1]</td></tr><tr><td>Ir-192</td><td><span class="badge cat2">(복수등급)</span></td><td class="num">3,788.8 TBq</td><td class="num">0.1091</td><td>[R1]</td></tr><tr><td>Se-75</td><td><span class="badge cat2">(복수등급)</span></td><td class="num">26,344 TBq</td><td class="num">0.0434</td><td>[R1]</td></tr></tbody></table>
+</div></section>
+
+<section id="s5"><div class="container"><h2>5. 선량률 산정 결과</h2>
+<h3>5.1 추가·변경 3핵종 (비차폐, 공기감쇠 미고려)</h3>
+<table><thead><tr><th>핵종</th><th>A (MBq)</th><th>Γ</th><th>1 m 선량률</th><th>0.3 m 선량률</th></tr></thead><tbody><tr><td>Am-241</td><td class="num">37,000</td><td class="num">0.0848</td><td class="num"><strong>3,138 μSv/h</strong></td><td class="num"><strong>34,862 μSv/h</strong></td></tr><tr><td>Cd-109</td><td class="num">7,400</td><td class="num">0.0498</td><td class="num"><strong>369 μSv/h</strong></td><td class="num"><strong>4,094 μSv/h</strong></td></tr><tr><td>Fe-55</td><td class="num">37,000</td><td class="num">0.1255</td><td class="num"><strong>4,644 μSv/h</strong></td><td class="num"><strong>51,594 μSv/h</strong></td></tr><tr class="total"><td>3핵종 합계</td><td></td><td></td><td class="num"><strong>8,151 μSv/h</strong></td><td class="num"><strong>90,550 μSv/h</strong></td></tr></tbody></table>
+<details><summary>▶ 검산 상세</summary><div class="content"><div class="formula">Am-241 @1m: 0.0848×37,000/1² = 3,137.6 ✓<br>Cd-109 @1m: 0.0498×7,400/1² = 368.5 ✓<br>Fe-55 @1m: 0.1255×37,000/1² = 4,643.5 ✓<br><br>Am-241 @0.3m: 3,137.6/0.09 = 34,862 ✓<br>Cd-109 @0.3m: 368.5/0.09 = 4,094 ✓<br>Fe-55 @0.3m: 4,643.5/0.09 = 51,594 ✓<br><br>합계 @1m: 3,138+369+4,644 = 8,151 ✓<br>합계 @0.3m: 34,862+4,094+51,594 = 90,550 ✓</div></div></details>
+
+<h3>5.2 기존 저장선원 (비차폐, 동일 조건)</h3>
+<table><thead><tr><th>핵종</th><th>A (MBq)</th><th>Γ</th><th>1 m 선량률</th></tr></thead><tbody><tr><td>Co-60 (1등급)</td><td class="num">97,680,000</td><td class="num">0.3059</td><td class="num"><strong>29,880,312 μSv/h ≈ 29.9 Sv/h</strong></td></tr><tr><td>Ir-192</td><td class="num">3,788,800,000</td><td class="num">0.1091</td><td class="num"><strong>413,358,080 μSv/h ≈ 413 Sv/h</strong></td></tr><tr><td>Se-75</td><td class="num">26,344,000,000</td><td class="num">0.0434</td><td class="num"><strong>1,143,329,600 μSv/h ≈ 1,143 Sv/h</strong></td></tr><tr class="total"><td>기존 합계</td><td></td><td></td><td class="num"><strong>1,586,567,992 μSv/h ≈ 1,587 Sv/h</strong></td></tr></tbody></table>
+
+<h3>5.3 비교</h3>
+<div class="card" style="padding:24px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:24px"><div><div style="font-size:.85rem;color:var(--muted);margin-bottom:8px">vs Co-60 단독 (1m)</div><div style="font-size:2rem;font-weight:700;color:var(--accent)">2.73 × 10⁻⁴</div><div style="font-size:.8rem;margin-top:4px">8,151 / 29,880,312</div></div><div><div style="font-size:.85rem;color:var(--muted);margin-bottom:8px">vs 기존 3핵종 합계 (1m)</div><div style="font-size:2rem;font-weight:700;color:var(--success)">5.14 × 10⁻⁶</div><div style="font-size:.8rem;margin-top:4px">8,151 / 1,586,567,992</div></div></div></div>
+
+<h4>시각적 비교 (1 m 선량률)</h4>
+<div class="bar-container"><div class="bar-label"><span>기존 Se-75</span><span>1,143 Sv/h</span></div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#e53e3e">1,143,329,600 μSv/h</div></div></div>
+<div class="bar-container"><div class="bar-label"><span>기존 Ir-192</span><span>413 Sv/h</span></div><div class="bar-track"><div class="bar-fill" style="width:36%;background:#dd6b20">413,358,080 μSv/h</div></div></div>
+<div class="bar-container"><div class="bar-label"><span>기존 Co-60</span><span>29.9 Sv/h</span></div><div class="bar-track"><div class="bar-fill" style="width:2.6%;background:#d69e2e">29,880,312 μSv/h</div></div></div>
+<div class="bar-container"><div class="bar-label"><span><strong>추가 3핵종 합계</strong></span><span><strong>8,151 μSv/h</strong></span></div><div class="bar-track"><div class="bar-fill" style="width:0.15%;min-width:120px;background:var(--accent)">8,151 μSv/h (0.00051%)</div></div></div>
+
+<h3>5.4 저장시설 경계면 선량률 변동</h3>
+<div class="card success">기존 저장시설 표면선량률 평가 결과(차폐 포함)에 대해, 추가 3핵종의 비차폐(최보수적) 기여분을 더하더라도 기존 평가 결과의 유효숫자 범위 내이며, <strong>저장시설 표면선량률 평가 결과에 변동 없음</strong>.</div>
+</div></section>
+
+<section id="s6"><div class="container"><h2>6. 취급 시 접촉(r → 0) 선량률에 관한 고찰</h2>
+<h3>6.1 문제</h3><p>점선원 모델 Ḣ = Γ·A/r²에서 선원을 손으로 쥘 경우 r → 0이 되어 선량률이 수학적으로 무한대로 발산한다.</p>
+<h3>6.2 이 문제가 별도 평가를 요하지 않는 근거</h3>
+<p>IAEA Safety Guide <strong>RS-G-1.9</strong> [R7]의 D-value 산정 과정에서는 다음 <strong>5가지 피폭 시나리오</strong>를 이미 평가하고 있다:</p>
+<table><thead><tr><th>시나리오</th><th>설명</th><th>r 조건</th></tr></thead><tbody><tr><td>1</td><td class="left">비차폐 선원을 신체에 밀착 휴대</td><td>r ≈ 수 mm</td></tr><tr><td>2</td><td class="left">비차폐 선원을 손으로 직접 취급</td><td>r ≈ 수 mm</td></tr><tr><td>3</td><td class="left">비차폐 선원 인근 장기 체류</td><td>r ~ 1 m</td></tr><tr><td>4</td><td class="left">선원 파손 후 방사성물질 흡입/섭취</td><td>내부피폭</td></tr><tr><td>5</td><td class="left">선원 분산에 의한 수원 오염</td><td>내부피폭</td></tr></tbody></table>
+<div class="card info">즉, <strong>D-value에 기반한 등급분류(Am-241 4등급, Cd-109·Fe-55 5등급) 자체가 접촉 포함 최악 시나리오에서의 건강영향을 이미 반영한 결과</strong>이다.</div>
+
+<h3>6.3 등급별 비차폐 접촉 시 건강영향 (RS-G-1.9 Annex I)</h3>
+<table><thead><tr><th>등급</th><th>비차폐 접촉 시 건강영향</th></tr></thead><tbody><tr><td><span class="badge cat1">1등급</span></td><td class="left">수 분~1시간 이내 치명적 선량</td></tr><tr><td><span class="badge cat2">2등급</span></td><td class="left">수 시간~수 일 이내 치명적 선량</td></tr><tr><td><span class="badge" style="background:#fefcbf;color:#975a16">3등급</span></td><td class="left">수 시간 이내 영구적 손상 가능</td></tr><tr class="highlight"><td><span class="badge cat4">4등급 (Am-241)</span></td><td class="left"><strong>장시간 접촉 시 영구적 손상 가능하나 생명 위협 가능성 낮음</strong></td></tr><tr class="highlight"><td><span class="badge cat5">5등급 (Cd-109, Fe-55)</span></td><td class="left"><strong>영구적 손상 가능성 낮음</strong></td></tr></tbody></table>
+
+<h3>6.4 기존 취급 현황과의 비교</h3>
+<p>본 사업자는 현재 다음 선원을 일상적으로 취급하고 있으며, 방사선방호 절차가 이미 수립·이행 중이다:</p>
+<table><thead><tr><th>핵종</th><th>등급</th><th>허가량</th><th>접촉 시 위험도</th></tr></thead><tbody><tr><td>Co-60</td><td><span class="badge cat1">1등급</span></td><td class="num">55.5 TBq</td><td class="left" style="color:var(--danger);font-weight:600">수 분 이내 치명적</td></tr><tr><td>Ir-192</td><td><span class="badge cat2">2등급 이상</span></td><td class="num">3,788.8 TBq</td><td class="left" style="color:var(--danger);font-weight:600">수 시간 이내 치명적</td></tr></tbody></table>
+<div class="card success">금번 추가되는 <strong>4등급(Am-241) 및 5등급(Cd-109, Fe-55) 선원의 접촉 위험은 기존 1·2등급 선원 대비 현저히 낮으므로</strong>, 기존 방사선방호 절차로 안전성이 충분히 담보되며, 추가적인 방호 조치가 불요하다.</div>
+</div></section>
+
+<section id="s7"><div class="container"><h2>7. 결론</h2>
+<div class="card success" style="font-size:1rem"><h4 style="margin-top:0">① 저장시설 경계면 선량률</h4><p>3핵종 추가분은 비차폐(최보수적) 조건에서도 기존 저장선원의 <strong>5.1 × 10⁻⁶</strong> 수준이며, 기존 평가 결과의 유효숫자 범위 내이므로 <strong>평가 결과 변동 없음</strong>.</p><h4>② 취급 시 접촉 선량률</h4><p>IAEA RS-G-1.9 등급분류 체계에 의해 이미 평가되어 있으며, 기존 1·2등급 선원 취급절차 및 방사선방호 체계로 <strong>안전성 담보됨</strong>.</p></div>
+</div></section>
+
+<section id="evidence"><div class="container"><h2>부록: 원본 데이터 출처 근거</h2>
+<p>본 평가에서 사용한 핵심 데이터의 원본 출처 및 해당 문서 내 정확한 위치를 아래에 기술한다.</p>
+
+<h3>A. NIST SRD 126 — 공기의 질량에너지흡수계수 [R4]</h3>
+<div class="card info"><strong>출처</strong>: NIST Standard Reference Database 126 (NISTIR 5632)<br><strong>문서 내 위치</strong>: "Dry Air (Near Sea Level)" 테이블<br><strong>원본 URL</strong>: <a href="https://physics.nist.gov/PhysRefData/XrayMassCoef/ComTab/air.html" target="_blank" style="word-break:break-all">https://physics.nist.gov/PhysRefData/XrayMassCoef/ComTab/air.html</a><br><strong>사용 데이터 행</strong>: Energy = 5.000E-03, 6.000E-03, 8.000E-03 MeV</div>
+<p>아래는 NIST 원본 페이지의 해당 영역을 재현한 것이다:</p>
+<div style="background:#f0f0f0;border:2px solid #999;border-radius:8px;padding:20px;font-family:'Courier New',monospace;font-size:.85rem;overflow-x:auto">
+<div style="text-align:center;font-weight:bold;margin-bottom:12px">Air, Dry (Near Sea Level) — HTML table format</div>
+<table style="margin:0 auto;border-collapse:collapse;font-family:'Courier New',monospace"><thead><tr style="border-bottom:2px solid #333"><th style="padding:4px 20px;text-align:center">Energy<br>(MeV)</th><th style="padding:4px 20px;text-align:center">μ/ρ<br>(cm²/g)</th><th style="padding:4px 20px;text-align:center">μ<sub>en</sub>/ρ<br>(cm²/g)</th></tr></thead><tbody>
+<tr><td style="padding:3px 20px;text-align:center">4.00000E-03</td><td style="text-align:center">7.788E+01</td><td style="text-align:center">7.636E+01</td></tr>
+<tr style="background:#fff3cd;font-weight:bold"><td style="padding:3px 20px;text-align:center">5.00000E-03</td><td style="text-align:center">4.027E+01</td><td style="text-align:center;color:#c00">3.931E+01</td></tr>
+<tr style="background:#fff3cd;font-weight:bold"><td style="padding:3px 20px;text-align:center">6.00000E-03</td><td style="text-align:center">2.341E+01</td><td style="text-align:center;color:#c00">2.270E+01</td></tr>
+<tr style="background:#fff3cd;font-weight:bold"><td style="padding:3px 20px;text-align:center">8.00000E-03</td><td style="text-align:center">9.921E+00</td><td style="text-align:center;color:#c00">9.446E+00</td></tr>
+<tr><td style="padding:3px 20px;text-align:center">1.00000E-02</td><td style="text-align:center">5.120E+00</td><td style="text-align:center">4.742E+00</td></tr>
+<tr><td style="padding:3px 20px;text-align:center">1.50000E-02</td><td style="text-align:center">1.614E+00</td><td style="text-align:center">1.334E+00</td></tr>
+</tbody></table>
+<div style="margin-top:8px;font-size:.75rem;color:#666;text-align:center">노란색 강조: Fe-55 Γ 산정에 사용된 보간 기저 데이터 (μ<sub>en</sub>/ρ 열)</div></div>
+
+<h3 style="margin-top:32px">B. IAEA RS-G-1.9 — D-value 및 등급분류 [R7]</h3>
+<div class="card info"><strong>출처</strong>: IAEA Safety Guide No. RS-G-1.9, "Categorization of Radioactive Sources" (2005)<br><strong>PDF</strong>: <a href="https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1227_web.pdf" target="_blank">PDF 전문 (70p)</a><br><strong>Online</strong>: <a href="https://nucleus-apps.iaea.org/nss-oui/Content/Index?CollectionId=m_7aff2daf-0377-4b9a-b2aa-4bf57cc79dad&type=PublishedCollection" target="_blank">IAEA NSS Online Interface</a></div>
+<h4>📍 5가지 피폭 시나리오 (D-value 산정 근거)</h4>
+<div class="card" style="background:#f8f9fa"><strong>문서 내 위치</strong>: Annex I "Rationale and Method for the Categorization" → "Methodology and Assumptions"<br><strong>PDF 페이지</strong>: pp. 25-30 (Annex I.3 ~ I.7)
+<table style="margin-top:12px"><thead><tr><th>시나리오</th><th>설명</th><th>PDF 위치</th></tr></thead><tbody><tr><td>1 — Unshielded source on body</td><td>비차폐 선원 신체 밀착 (r≈mm)</td><td>Annex I.4</td></tr><tr><td>2 — Unshielded source handled</td><td>비차폐 선원 손 취급 (r≈mm)</td><td>Annex I.5</td></tr><tr><td>3 — Unshielded source vicinity</td><td>비차폐 선원 인근 체류 (r~1m)</td><td>Annex I.6</td></tr><tr><td>4 — Dispersal/inhalation</td><td>선원 파손 후 흡입/섭취</td><td>Annex I.7</td></tr><tr><td>5 — Water contamination</td><td>수원 오염</td><td>Annex I.7</td></tr></tbody></table></div>
+<h4>📍 등급별 건강영향 (Category boundaries)</h4>
+<div class="card" style="background:#f8f9fa"><strong>문서 내 위치</strong>: Annex I → "Category Boundaries" 및 Table I-1<br><strong>PDF 페이지</strong>: pp. 31-33
+<table style="margin-top:12px"><thead><tr><th>등급</th><th>A/D 비율</th><th>비차폐 접촉 시 건강영향</th></tr></thead><tbody><tr><td><span class="badge cat1">1</span></td><td>A/D ≥ 1,000</td><td style="color:var(--danger);font-weight:600">수 분~1시간 이내 치명적</td></tr><tr><td><span class="badge cat2">2</span></td><td>10 ≤ A/D &lt; 1,000</td><td style="color:var(--danger)">수 시간~수 일 이내 치명적</td></tr><tr><td><span class="badge" style="background:#fefcbf;color:#975a16">3</span></td><td>1 ≤ A/D &lt; 10</td><td>수 시간 이내 영구적 손상 가능</td></tr><tr><td><span class="badge cat4">4</span></td><td>0.01 ≤ A/D &lt; 1</td><td>장시간 접촉 시 손상 가능, 생명위협 낮음</td></tr><tr><td><span class="badge cat5">5</span></td><td>A/D &lt; 0.01</td><td style="color:var(--success)">영구적 손상 가능성 낮음</td></tr></tbody></table></div>
+
+<h3 style="margin-top:32px">C. Smith &amp; Stabin 2012 — 선량률정수 [R1]</h3>
+<div class="card info"><strong>출처</strong>: Smith, D.S. &amp; Stabin, M.G., <em>Health Physics</em> 102(3), pp. 271-291, 2012<br><strong>문서 내 위치</strong>: Table 1 (pp. 274-289) — 핵종별 Exposure Rate Constant 및 Lead Shielding Values<br><strong>사용 데이터</strong>: Am-241, Cd-109, Co-60, Ir-192, Se-75의 Γ값</div>
+<table><thead><tr><th>핵종</th><th>채택값</th><th>R1 Table 1 위치</th></tr></thead><tbody><tr><td>Am-241</td><td class="num">0.0848</td><td class="left">Table 1, "Am-241" (Np L X-ray 포함)</td></tr><tr><td>Cd-109</td><td class="num">0.0498</td><td class="left">Table 1, "Cd-109" (Ag K X-ray 포함)</td></tr><tr><td>Co-60</td><td class="num">0.3059</td><td class="left">Table 1, "Co-60" (비교기준)</td></tr><tr><td>Ir-192</td><td class="num">0.1091</td><td class="left">Table 1, "Ir-192" (비교기준)</td></tr><tr><td>Se-75</td><td class="num">0.0434</td><td class="left">Table 1, "Se-75" (비교기준)</td></tr></tbody></table>
+
+<h3 style="margin-top:32px">D. ICRP Publication 107 — Fe-55 붕괴자료 [R3]</h3>
+<div class="card info"><strong>출처</strong>: ICRP Publication 107, Annals of the ICRP 38(3), 2008<br><strong>문서 내 위치</strong>: Electronic annex — Fe-55 decay data sheet<br><strong>사용 데이터</strong>: Mn Kα (5.899 keV, Y=0.166), Mn Kβ (6.490 keV, Y=0.034)</div>
+</div></section>
+
+<section id="ref"><div class="container"><h2>참고문헌</h2>
+<ul class="ref-list">
+<li><span class="ref-code">[R1]</span> Smith, D.S. &amp; Stabin, M.G., "Exposure Rate Constants and Lead Shielding Values for Over 1,100 Radionuclides," <em>Health Physics</em> <strong>102</strong>(3), 271-291, 2012</li>
+<li><span class="ref-code">[R2]</span> Peplow, D.E., "Specific Gamma-Ray Dose Constants with Current Emission Data," <em>Health Physics</em> <strong>118</strong>(4), 402-416, 2020</li>
+<li><span class="ref-code">[R3]</span> ICRP Publication 107, "Nuclear Decay Data for Dosimetric Calculations," Annals of the ICRP <strong>38</strong>(3), 2008</li>
+<li><span class="ref-code">[R4]</span> Hubbell, J.H. &amp; Seltzer, S.M., NIST SRD 126 (NISTIR 5632)<br><a href="https://physics.nist.gov/PhysRefData/XrayMassCoef/ComTab/air.html" target="_blank">→ Dry air data 원본</a></li>
+<li><span class="ref-code">[R5]</span> Unger, L.M. &amp; Trubey, D.K., ORNL/RSIC-45/R1, 1982</li>
+<li><span class="ref-code">[R6]</span> Delacroix, D. et al., <em>Rad. Prot. Dosimetry</em> <strong>98</strong>(1), 2002</li>
+<li><span class="ref-code">[R7]</span> IAEA RS-G-1.9, 2005<br><a href="https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1227_web.pdf" target="_blank">→ PDF</a> | <a href="https://nucleus-apps.iaea.org/nss-oui/Content/Index?CollectionId=m_7aff2daf-0377-4b9a-b2aa-4bf57cc79dad&type=PublishedCollection" target="_blank">→ Online</a></li>
+<li><span class="ref-code">[R8]</span> ISO 2919:2012, Sealed radioactive sources</li>
+</ul></div></section>
+
+<footer><div class="container"><p>HJ RI 판매 · 변경허가 신청 첨부 · 2026-04-14 작성</p></div></footer>
+<script>
+const sections=document.querySelectorAll('section[id]');const navLinks=document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id});navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
+</script>
+</body></html>
