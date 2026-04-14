@@ -20,13 +20,15 @@ details{margin:12px 0}details summary{cursor:pointer;font-weight:600;color:var(-
 footer{background:var(--primary);color:#fff;padding:24px 0;text-align:center;font-size:.8rem;opacity:.9}
 blockquote{border-left:4px solid var(--accent);padding:12px 16px;margin:12px 0;background:#ebf8ff;border-radius:0 4px 4px 0;font-weight:600}
 .correction{border-left:4px solid var(--danger);background:#fff5f5;padding:12px 16px;margin:12px 0;border-radius:0 4px 4px 0}
+.gemini-review{border:2px solid #805ad5;background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:8px;padding:20px;margin:16px 0}.gemini-review .badge-gemini{display:inline-block;background:#805ad5;color:#fff;padding:3px 12px;border-radius:12px;font-size:.78rem;font-weight:700;margin-bottom:8px}.gemini-review h4{color:#553c9a;margin-top:8px}
+.gemini-fix{border-left:4px solid #805ad5;background:#faf5ff;padding:12px 16px;margin:12px 0;border-radius:0 4px 4px 0}
 @media(max-width:640px){header h1{font-size:1.3rem}h2{font-size:1.15rem}table{font-size:.78rem}th,td{padding:6px 8px}}
 sup{font-size:.7em}
 </style>
 </head>
 <body>
-<header><div class="container"><h1>저장시설 표면선량률 평가</h1><div class="subtitle">Am-241 · Cd-109 · Fe-55 추가·변경분 (정정판 v2)</div><div class="meta"><span>2026-04-14</span><span>변경허가 신청 첨부</span><span>HJ RI 판매</span></div></div></header>
-<nav><div class="container"><a href="#s1">1. 목적</a><a href="#s2">2. 대상</a><a href="#s3">3. 방법</a><a href="#s4">4. 물리데이터</a><a href="#s5">5. 결과</a><a href="#s6">6. 차폐</a><a href="#s7">7. 접촉선량</a><a href="#s8">8. 결론</a><a href="#evidence">출처근거</a><a href="#code">Python</a><a href="#ref">참고문헌</a></div></nav>
+<header><div class="container"><h1>저장시설 표면선량률 평가</h1><div class="subtitle">Am-241 · Cd-109 · Fe-55 추가·변경분 (정정판 v3 — Gemini 교차검증 반영)</div><div class="meta"><span>2026-04-14</span><span>변경허가 신청 첨부</span><span>HJ RI 판매</span></div></div></header>
+<nav><div class="container"><a href="#s1">1. 목적</a><a href="#s2">2. 대상</a><a href="#s3">3. 방법</a><a href="#s4">4. 물리데이터</a><a href="#s5">5. 결과</a><a href="#s6">6. 차폐</a><a href="#s7">7. 접촉선량</a><a href="#s8">8. 수계산</a><a href="#s9">9. 종합비교</a><a href="#s10">10. 결론</a><a href="#evidence">출처근거</a><a href="#code">Python</a><a href="#ref">참고문헌</a></div></nav>
 
 <section id="s1"><div class="container"><h2>1. 평가 목적</h2><p>금번 변경허가 신청에 따라 추가·변경되는 3핵종이 기존 저장시설 경계면 선량률 평가 결과에 미치는 영향을 정량적으로 평가한다.</p></div></section>
 
@@ -590,6 +592,19 @@ NIST 계산 MVL(0.252 mm)과 S&amp;S MVL(0.74 mm)의 차이는 <strong>Pb K-edge
 </div></details>
 
 <h4>6.4.4 Python 계산 코드 및 검증</h4>
+
+<div class="gemini-review">
+<span class="badge-gemini">&#x1F50D; Gemini 교차검증 수정사항 (2026-04-14)</span>
+<h4>Fallback 버그 수정</h4>
+<p>Gemini의 코드 리뷰에서 <code>get_fe_mu(E)</code> 및 <code>get_air_muen(E)</code> 함수의 <strong>범위 이탈 시 fallback 버그</strong>가 발견되었다.</p>
+<table style="font-size:.82rem"><thead><tr><th>항목</th><th>수정 전 (버그)</th><th>수정 후</th></tr></thead><tbody>
+<tr><td class="left">입력: Fe-55 (5.89 keV)</td><td class="left" style="color:var(--danger)">fe_data 최저(10 keV) 미만 &rarr; 루프 통과 &rarr; <strong>100 keV 값(0.3717) 반환</strong></td><td class="left" style="color:var(--success)">범위 이하 감지 &rarr; <strong>처음 두 점(10, 15 keV)으로 log-log 외삽</strong> &rarr; 712.4 반환</td></tr>
+<tr><td class="left">오차 규모</td><td colspan="2" class="left">수정 전 값은 실제의 <strong>1/1,916</strong> &mdash; 차폐 두께가 약 2,000배 과소평가되는 치명적 오류</td></tr>
+<tr><td class="left">발현 여부</td><td colspan="2" class="left">Am-241(최저 11.89 keV)과 Cd-109(최저 21.99 keV)만 계산하여 <strong>미발현</strong>. Fe-55를 코드에 추가했다면 발현.</td></tr>
+</tbody></table>
+<p style="font-size:.82rem;color:var(--muted);margin-bottom:0">본 보고서의 Am-241, Cd-109 계산 결과에는 영향 없음 확인. 코드 전문에 수정사항 및 주석 반영 완료.</p>
+</div>
+
 <div class="card info"><strong>수치 풀이 방법</strong><br>
 다중 지수 합 T(x) = &Sigma; w<sub>i</sub> &times; exp(&minus;&mu;<sub>i</sub>x)에 대해 T(x) = 목표값(0.5, 0.25, ...)을 만족하는 x를 <strong>이분법(bisection method)</strong>으로 구하였다. 허용오차 10<sup>&minus;10</sup>, 최대 반복 100회.</div>
 <details open><summary>&#9654; Python 코드 핵심 로직</summary><div class="content"><div class="formula" style="font-size:.8rem;line-height:1.6"><span class="step"># 1. 방출선별 공기커마 기여 가중치 계산</span><br>
@@ -665,7 +680,133 @@ HVL = x_mid<br><br>
 <div class="card success">금번 추가되는 <strong>4등급(Am-241) 및 5등급(Cd-109, Fe-55) 선원의 접촉 위험은 기존 1·2등급 선원 대비 현저히 낮으므로</strong>, 기존 방사선방호 절차로 안전성이 충분히 담보된다.</div>
 </div></section>
 
-<section id="s8"><div class="container"><h2>8. 결론</h2>
+<section id="s8"><div class="container"><h2>8. 수계산 검증 (단일에너지 컷오프 방식)</h2>
+
+<div class="gemini-review">
+<span class="badge-gemini">Gemini 컷오프 방식 수용 &amp; 보완</span>
+<p>§6.4의 복합 스펙트럼 HVL은 다중 지수 함수의 수치해석(Python bisection)을 필요로 하므로, 규제기관이 <strong>수기 검산 가능한 형태</strong>를 요구할 경우 적용이 어렵다. Gemini의 교차검증에서 제안된 <strong>단일 지배에너지 기반 컷오프 방식</strong>은 이 문제를 해결하며, 아래와 같이 보완하여 수용한다.</p>
+</div>
+
+<h3>8.1 컷오프 방식의 원리</h3>
+<div class="card info"><strong>핵심 아이디어</strong><br>
+각 핵종의 다중 방출선 중 <strong>차폐재 투과력이 가장 큰(= 에너지가 높은) 단일 에너지선</strong>만으로 HVL을 계산한다.<br><br>
+&bull; 저에너지 X선 성분 제거 &rarr; HVL이 커짐 &rarr; <strong>차폐 두께가 더 두껍게 산정됨 &rarr; 보수적(안전 방향)</strong><br>
+&bull; 단일 지수함수 HVL = ln(2)/&mu; &rarr; <strong>계산기만으로 수계산 가능</strong></div>
+
+<h3>8.2 Am-241 수계산</h3>
+<div class="formula"><span class="step">지배 에너지: 59.5 keV &gamma;선 (Y = 0.3592)</span><br><br>
+<span class="step">[감마상수]</span><br>
+&Gamma; = 193 &times; E &times; Y &times; (&mu;<sub>en</sub>/&rho;)<sub>air</sub><br>
+&nbsp;&nbsp;= 193 &times; 0.05954 &times; 0.3592 &times; 0.03041<br>
+&nbsp;&nbsp;<span class="result">= 0.1255 R&middot;cm&sup2;/(mCi&middot;h) = 0.00298 &mu;Sv&middot;m&sup2;/(MBq&middot;h)</span><br><br>
+<span class="step">[철(Fe) 반가층]</span><br>
+&mu;/&rho;<sub>Fe</sub>(59.5 keV) = 1.230 cm&sup2;/g (NIST)<br>
+&mu; = 1.230 &times; 7.874 = 9.685 cm<sup>&minus;1</sup><br>
+HVL<sub>Fe</sub> = 0.693 / 9.685 = 0.0716 cm <span class="result">= 0.716 mm</span><br><br>
+<span class="step">[납(Pb) 반가층]</span><br>
+&mu;/&rho;<sub>Pb</sub>(59.5 keV) = 5.122 cm&sup2;/g (NIST)<br>
+&mu; = 5.122 &times; 11.35 = 58.13 cm<sup>&minus;1</sup><br>
+HVL<sub>Pb</sub> = 0.693 / 58.13 = 0.01192 cm <span class="result">= 0.119 mm</span></div>
+<p style="font-size:.82rem;color:var(--muted)">Np L X-ray(11~21 keV) 기여분(공기커마의 90.7%) 제외. 이들은 Fe 0.02 mm, Pb 0.005 mm로 완전 차폐되므로 차폐 설계에 무관.</p>
+
+<h3>8.3 Cd-109 수계산</h3>
+<div class="formula"><span class="step">지배 에너지: 88.0 keV &gamma;선 (Y = 0.0363)</span><br><br>
+<span class="step">[감마상수]</span><br>
+&Gamma; = 193 &times; 0.08803 &times; 0.0363 &times; 0.0237<br>
+&nbsp;&nbsp;<span class="result">= 0.0146 R&middot;cm&sup2;/(mCi&middot;h) = 0.00035 &mu;Sv&middot;m&sup2;/(MBq&middot;h)</span><br><br>
+<span class="step">[철(Fe) 반가층]</span><br>
+&mu;/&rho;<sub>Fe</sub>(88 keV) = 0.486 cm&sup2;/g (NIST)<br>
+&mu; = 0.486 &times; 7.874 = 3.831 cm<sup>&minus;1</sup><br>
+HVL<sub>Fe</sub> = 0.693 / 3.831 = 0.1809 cm <span class="result">= 1.809 mm</span><br><br>
+<span class="step">[납(Pb) 반가층 &mdash; K-edge 상단]</span><br>
+&mu;/&rho;<sub>Pb</sub>(88 keV) = 7.677 cm&sup2;/g <span class="comment">(K-edge 88.005 keV 상단)</span><br>
+&mu; = 7.677 &times; 11.35 = 87.14 cm<sup>&minus;1</sup><br>
+HVL<sub>Pb</sub> = 0.693 / 87.14 = 0.00795 cm <span class="result">= 0.080 mm</span><br><br>
+<span class="step">[참고: K-edge 하단 적용 시]</span><br>
+&mu;/&rho;<sub>Pb</sub> = 1.910 cm&sup2;/g &rarr; HVL<sub>Pb</sub> = 0.320 mm <span class="comment">(보수적 대안)</span></div>
+<p style="font-size:.82rem;color:var(--muted)">Ag K X-ray(22~25 keV) 기여분(공기커마의 99.1%) 제외. Fe 0.05 mm, Pb 0.01 mm로 완전 차폐.</p>
+
+<h3>8.4 Fe-55 수계산</h3>
+<div class="formula"><span class="step">유일한 방출선: 5.89 keV Mn K X-ray (Y = 0.200, ICRP 107)</span><br><br>
+<span class="step">[감마상수]</span><br>
+&Gamma; = 193 &times; 0.00589 &times; 0.200 &times; 24.00<br>
+&nbsp;&nbsp;<span class="result">= 5.457 R&middot;cm&sup2;/(mCi&middot;h) = 0.1293 &mu;Sv&middot;m&sup2;/(MBq&middot;h)</span><br>
+<span class="comment">단일 방출선이므로 컷오프와 전 스펙트럼 결과 동일. &mu;<sub>en</sub>/&rho; 값이 24.0으로 매우 커 &Gamma;가 높으나, 극저에너지라 공기 수 cm에서 대부분 흡수됨.</span><br><br>
+<span class="step">[철(Fe) 반가층]</span><br>
+&mu;/&rho;<sub>Fe</sub>(5.89 keV) = 712.4 cm&sup2;/g <span class="comment">(NIST 외삽, Gemini 수정 후)</span><br>
+&mu; = 712.4 &times; 7.874 = 5,610 cm<sup>&minus;1</sup><br>
+HVL<sub>Fe</sub> = 0.693 / 5,610 <span class="result">= 0.0012 mm (1.2 &mu;m)</span><br><br>
+<span class="step">[납(Pb) 반가층]</span><br>
+&mu;/&rho;<sub>Pb</sub>(5.89 keV) = 495.1 cm&sup2;/g<br>
+&mu; = 495.1 &times; 11.35 = 5,619 cm<sup>&minus;1</sup><br>
+HVL<sub>Pb</sub> = 0.693 / 5,619 <span class="result">= 0.0012 mm (1.2 &mu;m)</span></div>
+<div class="card success">&rArr; Fe-55의 5.89 keV X선은 <strong>어떤 금속이든 수 &mu;m 두께면 완전 차폐</strong>. 밀봉캡슐 존재 시 외부 피폭 기여 사실상 0.</div>
+
+<h3>8.5 컷오프 방식의 적용 한계와 보완</h3>
+<div class="card warn"><strong>컷오프 방식은 차폐 설계에는 보수적이나, 선량률 평가에는 비보수적이다.</strong><br><br>
+&bull; <strong>차폐(HVL)</strong>: 저에너지 제거 &rarr; HVL 증가 &rarr; 더 두꺼운 차폐 요구 &rarr; <strong>보수적 &#10003;</strong><br>
+&bull; <strong>선량률(&Gamma;)</strong>: 저에너지 제거 &rarr; &Gamma; 감소 &rarr; 선량률 과소평가 &rarr; <strong>비보수적 &#10007;</strong><br><br>
+따라서 <strong>선량률 평가에는 S&amp;S 또는 전 스펙트럼 값을 채택</strong>하고, 컷오프 HVL은 차폐 검증용으로만 사용해야 한다.</div>
+
+</div></section>
+
+<section id="s9"><div class="container"><h2>9. 3가지 방법론 종합 비교</h2>
+
+<h3>9.1 감마상수 (&Gamma;) 비교</h3>
+<table><thead><tr><th>핵종</th><th>방법</th><th>&Gamma;<br>[R&middot;cm&sup2;/(mCi&middot;h)]</th><th>&Gamma;<br>[&mu;Sv&middot;m&sup2;/(MBq&middot;h)]</th><th>비고</th></tr></thead><tbody>
+<tr class="highlight"><td rowspan="3">Am-241</td><td class="left"><strong>S&amp;S [R1]</strong></td><td class="num"><strong>0.749</strong></td><td class="num"><strong>0.01775</strong></td><td class="left">문헌값 (채택)</td></tr>
+<tr><td class="left">Claude NIST (전 스펙트럼)</td><td class="num">1.670</td><td class="num">0.03960</td><td class="left">ICRP 107 전 방출선, &times;2.23 차이 미해결</td></tr>
+<tr><td class="left">컷오프 (59.5 keV &gamma; only)</td><td class="num">0.126</td><td class="num">0.00298</td><td class="left">X-ray 90.7% 제거 &rarr; 비보수적</td></tr>
+<tr class="highlight"><td rowspan="3">Cd-109</td><td class="left"><strong>S&amp;S [R1]</strong></td><td class="num"><strong>0.858</strong></td><td class="num"><strong>0.02034</strong></td><td class="left">문헌값 (채택)</td></tr>
+<tr><td class="left">Claude NIST (전 스펙트럼)</td><td class="num">1.636</td><td class="num">0.03880</td><td class="left">ICRP 107 전 방출선, &times;1.91 차이 미해결</td></tr>
+<tr><td class="left">컷오프 (88 keV &gamma; only)</td><td class="num">0.015</td><td class="num">0.00035</td><td class="left">X-ray 99.1% 제거 &rarr; 비보수적</td></tr>
+<tr class="highlight"><td rowspan="2">Fe-55</td><td class="left"><strong>Unger &amp; Trubey [R5]</strong></td><td class="num"><strong>5.295</strong></td><td class="num"><strong>0.12550</strong></td><td class="left">문헌값 (채택)</td></tr>
+<tr><td class="left">NIST 계산 (Y=0.200)</td><td class="num">5.457</td><td class="num">0.12934</td><td class="left">단일선 &rarr; 컷오프 동일. 3% 차이</td></tr>
+</tbody></table>
+
+<h3>9.2 반가층 (HVL) 비교</h3>
+<table><thead><tr><th>핵종</th><th>차폐재</th><th>S&amp;S [R1]</th><th>Claude NIST<br>(복합 스펙트럼)</th><th>컷오프<br>(수계산)</th><th>판정</th></tr></thead><tbody>
+<tr><td rowspan="2">Am-241</td><td>Pb</td><td class="num">0.00974 mm</td><td class="num">0.0057 mm</td><td class="num"><strong>0.119 mm</strong></td><td class="left">컷오프 &asymp; 59.5 keV 단색 HVL (최보수적)</td></tr>
+<tr><td>Fe</td><td class="num">&mdash;</td><td class="num">0.020 mm</td><td class="num"><strong>0.716 mm</strong></td><td class="left">컷오프 = 36&times; 복합 (X-ray 지배 제거)</td></tr>
+<tr><td rowspan="2">Cd-109</td><td>Pb</td><td class="num">0.0109 mm</td><td class="num">0.0096 mm</td><td class="num"><strong>0.080 mm</strong></td><td class="left">K-edge 상단 적용 (하단 시 0.320 mm)</td></tr>
+<tr><td>Fe</td><td class="num">&mdash;</td><td class="num">0.048 mm</td><td class="num"><strong>1.809 mm</strong></td><td class="left">컷오프 = 38&times; 복합</td></tr>
+<tr><td rowspan="2">Fe-55</td><td>Pb</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num"><strong>0.0012 mm</strong></td><td class="left">어떤 금속이든 수 &mu;m면 완전차폐</td></tr>
+<tr><td>Fe</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num"><strong>0.0012 mm</strong></td><td class="left">밀봉캡슐 존재 시 기여 0</td></tr>
+</tbody></table>
+
+<h3>9.3 선량률 비교 (@1 m, 비차폐)</h3>
+<table><thead><tr><th>핵종</th><th>총 MBq</th><th>S&amp;S &Gamma; 기반<br>(&mu;Sv/h)</th><th>컷오프 &Gamma; 기반<br>(&mu;Sv/h)</th><th>비율</th></tr></thead><tbody>
+<tr><td>Am-241</td><td class="num">37,000</td><td class="num">657</td><td class="num">110</td><td class="num">0.17&times;</td></tr>
+<tr><td>Cd-109</td><td class="num">7,400</td><td class="num">151</td><td class="num">2.6</td><td class="num">0.017&times;</td></tr>
+<tr><td>Fe-55</td><td class="num">37,000</td><td class="num">4,644</td><td class="num">4,786</td><td class="num">1.03&times;</td></tr>
+<tr class="total"><td>합계</td><td></td><td class="num"><strong>5,451</strong></td><td class="num"><strong>4,898</strong></td><td class="num">0.90&times;</td></tr>
+</tbody></table>
+<p style="font-size:.82rem;color:var(--muted)">컷오프 방식은 Am-241, Cd-109의 X선 기여를 무시하므로 선량률이 S&amp;S 대비 크게 낮아진다. 선량률 평가에서는 S&amp;S 채택이 보수적으로 적절.</p>
+
+<h3>9.4 종합 결론</h3>
+<div class="card success" style="font-size:.95rem">
+<h4 style="margin-top:0">방법론별 역할 분담</h4>
+<table style="font-size:.85rem"><thead><tr><th>평가 항목</th><th>채택 방법</th><th>근거</th></tr></thead><tbody>
+<tr><td class="left"><strong>선량률 평가 (&Gamma;)</strong></td><td class="left">S&amp;S [R1] 문헌값</td><td class="left">peer-reviewed, 전 스펙트럼 포함, 보수적 방향</td></tr>
+<tr><td class="left"><strong>차폐 설계 (HVL)</strong></td><td class="left">컷오프 수계산 (지배에너지)</td><td class="left">수기 검산 가능, HVL 과대평가 &rarr; 보수적</td></tr>
+<tr><td class="left"><strong>정밀 검증</strong></td><td class="left">Claude NIST + Python</td><td class="left">전 방출선 복합 투과율, 수치해석 기반</td></tr>
+</tbody></table>
+<p style="margin-bottom:0"><strong>3가지 방법이 모두 같은 결론을 지지함</strong>: 3핵종의 비차폐 선량률은 기존 저장선원의 10<sup>&minus;6</sup> 수준이며, 밀봉캡슐 및 최소 차폐재로 저에너지 성분이 완전 차폐되어 <strong>저장시설 경계면 선량률에 실질적 영향 없음</strong>.</p>
+</div>
+
+<div class="gemini-review">
+<span class="badge-gemini">교차검증 이력</span>
+<p style="margin-bottom:4px">본 평가는 <strong>Claude (NIST 전 스펙트럼 계산)</strong>와 <strong>Gemini (단일에너지 컷오프 계산)</strong> 간 3회 교차검증을 거쳤다.</p>
+<table style="font-size:.82rem"><thead><tr><th>회차</th><th>내용</th><th>결과</th></tr></thead><tbody>
+<tr><td>1차</td><td class="left">Gemini가 Claude의 평가 보고서 v2 검토</td><td class="left">방법론 적정, S&amp;S 차이 원인 분석</td></tr>
+<tr><td>2차</td><td class="left">Claude가 Gemini의 감마상수/HVL 계산 검산</td><td class="left">X선 누락(critical), K-edge 처리, Fe-55 Y값 차이 지적</td></tr>
+<tr><td>3차</td><td class="left">Gemini가 Claude 지적 전면 수용 + 코드 버그 발견</td><td class="left">fallback 버그 수정, 컷오프 방식 수계산 채택 합의</td></tr>
+</tbody></table>
+</div>
+
+</div></section>
+
+<section id="s10"><div class="container"><h2>10. 결론</h2>
 <div class="card success" style="font-size:1rem"><h4 style="margin-top:0">&ensp; 저장시설 경계면 선량률</h4><p>3핵종 추가분은 비차폐(최보수적) 조건에서도 기존 저장선원의 <strong>3.4 &times; 10<sup>&minus;6</sup></strong> 수준이며, 기존 평가 결과의 유효숫자 범위 내이므로 <strong>평가 결과 변동 없음</strong>.</p><h4>&ensp; 차폐 특성</h4><p>밀봉캡슐 벽(0.5~2 mm 금속)에 의해 저에너지 X선 성분(Am-241 L X-ray, Cd-109 Ag K X-ray, Fe-55 Mn K X-ray)은 사실상 <strong>완전 차폐</strong>되며, 실제 선량은 본 비차폐 평가의 극히 일부에 불과하다.</p><h4>&ensp; 취급 시 접촉 선량률</h4><p>IAEA RS-G-1.9 등급분류 체계에 의해 이미 평가되어 있으며, 기존 1·2등급 선원 취급절차로 <strong>안전성 담보됨</strong>.</p></div>
 </div></section>
 
@@ -775,6 +916,11 @@ air_data = [
 ]
 
 def get_air_muen(E):
+    # [Gemini 교차검증 수정] E &lt; 5 keV 시 100 keV 값 반환 버그 수정
+    if E &lt; air_data[0][0]:
+        e1, m1 = air_data[0]
+        e2, m2 = air_data[1]
+        return log_interp(E, e1, m1, e2, m2)
     for i in range(len(air_data)-1):
         e1, m1 = air_data[i]
         e2, m2 = air_data[i+1]
@@ -879,6 +1025,12 @@ def get_pb_mu(E):
         return log_interp(E, 100, 5.549, 150, 2.014)
 
 def get_fe_mu(E):
+    # [Gemini 교차검증 수정] E &lt; 10 keV 시 100 keV 값 반환 버그 수정
+    # Fe-55(5.89 keV) 입력 시 0.3717 대신 712.4 반환 (1,916배 차이)
+    if E &lt; fe_data[0][0]:
+        e1, m1 = fe_data[0]
+        e2, m2 = fe_data[1]
+        return log_interp(E, e1, m1, e2, m2)
     for i in range(len(fe_data)-1):
         e1, m1 = fe_data[i]
         e2, m2 = fe_data[i+1]
@@ -887,6 +1039,11 @@ def get_fe_mu(E):
     return fe_data[-1][1]
 
 def get_air_muen(E):
+    # [Gemini 교차검증 수정] 동일 fallback 버그. 범위 이하 → 외삽 처리.
+    if E &lt; air_data[0][0]:
+        e1, m1 = air_data[0]
+        e2, m2 = air_data[1]
+        return log_interp(E, e1, m1, e2, m2)
     for i in range(len(air_data)-1):
         e1, m1 = air_data[i]
         e2, m2 = air_data[i+1]
@@ -977,7 +1134,7 @@ for name, lines in [("Am-241", am241_lines), ("Cd-109", cd109_lines)]:
 <li><span class="ref-code">[R8]</span> ISO 2919:2012, Sealed radioactive sources</li>
 </ul></div></section>
 
-<footer><div class="container"><p>HJ RI 판매 &middot; 변경허가 신청 첨부 &middot; 2026-04-14 작성 &middot; 정정판 v2</p></div></footer>
+<footer><div class="container"><p>HJ RI 판매 &middot; 변경허가 신청 첨부 &middot; 2026-04-14 작성 &middot; 정정판 v3 (Gemini 교차검증 반영)</p></div></footer>
 <script>
 const sections=document.querySelectorAll('section[id]');const navLinks=document.querySelectorAll('nav a');
 window.addEventListener('scroll',()=>{let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id});navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
